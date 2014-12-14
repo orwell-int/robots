@@ -71,25 +71,46 @@
                 <version>1.3.2</version>
                 <executions>
                     <execution>
-                        <phase>process-classes</phase>
+                        <id>link</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
+                        <configuration>
+                            <executable>nxjlink</executable>
+                            <!-- optional -->
+                            <workingDirectory>./target/classes</workingDirectory>
+                            <arguments>
+                                <argument>-v</argument>
+                                <argument>-oTankControl.nxj</argument>
+                                <argument>orwell.tank.TankControl</argument>
+                                <argument>--classpath</argument>
+                                <argument>.:../../../lejos-mf-nxt/lejos-mf-nxt-module/target/classes:../../../lejos-mf-nxt/lejos-mf-common/target/classes</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>upload</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>nxjupload</executable>
+                            <!-- optional -->
+                            <workingDirectory>./target/classes</workingDirectory>
+                            <arguments>
+                                <argument>-r</argument>
+                                <argument>-n</argument>
+                                <argument>${robotname}</argument>
+                                <argument>TankControl.nxj</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>nxjlink</executable>
-                    <!-- optional -->
-                    <workingDirectory>./target/classes</workingDirectory>
-                    <arguments>
-                        <argument>-v</argument>
-                        <argument>-oRemoteControl.nxj</argument>
-                        <argument>orwell.tank.RemoteControl</argument>
-                        <argument>--classpath</argument>
-                        <argument>.:../../../lejos-mf-nxt/lejos-mf-nxt-module/target/classes:../../../lejos-mf-nxt/lejos-mf-common/target/classes</argument>
-                    </arguments>
-                </configuration>
+
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
@@ -102,12 +123,8 @@
                         <configuration>
                             <properties>
                                 <property>
-                                    <name>COMMAND_NAME</name>
-                                    <value>nxjlink</value>
-                                </property>
-                                <property>
-                                    <name>nxj.home</name>
-                                    <value>${env.NXJ_HOME}</value>
+                                    <name>robotname</name>
+                                    <value>${robotname}</value>
                                 </property>
                             </properties>
                         </configuration>
