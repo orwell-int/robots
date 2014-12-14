@@ -1,11 +1,13 @@
-package main.java.orwell.tank;
+package orwell.tank;
 
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
-import orwell.common.MessageListenerInterface;
-import orwell.common.UnitMessage;
+import lejos.mf.common.MessageListenerInterface;
+import lejos.mf.common.UnitMessage;
+import lejos.mf.nxt.MessageFrameworkNXT;
+
 
 /**
  * Thread to wait for a Bluetooth connection and execute remote commands
