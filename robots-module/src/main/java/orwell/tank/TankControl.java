@@ -1,13 +1,10 @@
 package orwell.tank;
 
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
-import lejos.nxt.MotorPort;
-import lejos.nxt.NXTMotor;
-import lejos.nxt.Sound;
+import lejos.nxt.*;
 import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.nxt.MessageFrameworkNXT;
+import lejos.nxt.addon.RFIDSensor;
 
 
 /**
@@ -18,6 +15,7 @@ class TankControl extends Thread implements MessageListenerInterface {
 
 	NXTMotor motorLeft = new NXTMotor(MotorPort.B);
 	NXTMotor motorRight = new NXTMotor(MotorPort.C);
+	RFIDSensor rfidSensor = new RFIDSensor(SensorPort.S2);
 
 	public void run() {
 		remoteCtrlAlive = true;
@@ -30,6 +28,11 @@ class TankControl extends Thread implements MessageListenerInterface {
 		Sound.beep();
 
 		while (!Button.ESCAPE.isDown() && remoteCtrlAlive) {
+			LCD.drawString(rfidSensor.getProductID(), 0, 1, false);
+			LCD.drawString(rfidSensor.getVendorID(), 0, 2, false);
+			LCD.drawString(rfidSensor.getVersion(), 0, 3, false);
+			LCD.drawString(Long.toString(rfidSensor.readTransponderAsLong(true)), 0, 4, false);
+			LCD.drawString(Integer.toString(rfidSensor.getStatus()), 0, 5, false);
 		}
 	}
 

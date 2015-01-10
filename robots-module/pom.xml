@@ -55,7 +55,6 @@
                         <!-- Here we force the load of classes.jar because leJOS does not
                          use the standard java.lang classes but has its own versions in classes.jar. -->
                         <bootclasspath>${project.dependencies}</bootclasspath>
-                        <writeorder>"LE"</writeorder>
 
                     </compilerArguments>
                 </configuration>
