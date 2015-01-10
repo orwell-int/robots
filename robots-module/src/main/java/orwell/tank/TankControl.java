@@ -1,5 +1,6 @@
 package orwell.tank;
 
+import lejos.mf.common.UnitMessageType;
 import lejos.nxt.*;
 import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
@@ -20,20 +21,36 @@ class TankControl extends Thread implements MessageListenerInterface {
 	public void run() {
 		remoteCtrlAlive = true;
 
-		LCD.drawString(" Waiting for PC ", 4, 10, true);
+		LCD.drawString(" Waiting for PC ", 0, 5, true);
 		MessageFrameworkNXT mfw = MessageFrameworkNXT.getInstance();
 		mfw.addMessageListener(this);
 		mfw.StartListen();
-		LCD.drawString("Connected!", 0, 0, true);
+		LCD.drawString("Connected!", 0, 5, true);
 		Sound.beep();
 
+		UnitMessage rfidMessage;
+		String rfidValueCurrent;
+		String rfidValuePrevious = "null";
+
 		while (!Button.ESCAPE.isDown() && remoteCtrlAlive) {
-			LCD.drawString(rfidSensor.getProductID(), 0, 1, false);
-			LCD.drawString(rfidSensor.getVendorID(), 0, 2, false);
-			LCD.drawString(rfidSensor.getVersion(), 0, 3, false);
-			LCD.drawString(Long.toString(rfidSensor.readTransponderAsLong(true)), 0, 4, false);
+			rfidValueCurrent = Long.toString(rfidSensor.readTransponderAsLong(true));
+
+			if (rfidValueCurrent.compareTo(rfidValuePrevious) == 0) {
+				continue;
+			}
+
+			LCD.clear(4);
+			LCD.clear(5);
+			LCD.drawString(rfidValueCurrent, 0, 4, false);
 			LCD.drawString(Integer.toString(rfidSensor.getStatus()), 0, 5, false);
+
+			rfidMessage = new UnitMessage(UnitMessageType.Command, "rfid " + rfidValueCurrent);
+			mfw.SendMessage(rfidMessage);
+			rfidValuePrevious = rfidValueCurrent;
 		}
+		Sound.buzz();
+		UnitMessage stopMessage = new UnitMessage(UnitMessageType.Command, "stop");
+		mfw.SendMessage(stopMessage);
 	}
 
 	public void stop_robot() {
