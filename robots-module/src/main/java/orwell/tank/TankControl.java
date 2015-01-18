@@ -37,19 +37,19 @@ class TankControl extends Thread implements MessageListenerInterface {
 
 			if (rfidValueCurrent.compareTo(rfidValuePrevious) == 0) {
 				continue;
+			} else {
+				LCD.clear(4);
+				LCD.clear(5);
+				LCD.drawString(rfidValueCurrent, 0, 4, false);
+				LCD.drawString(Integer.toString(rfidSensor.getStatus()), 0, 5, false);
+
+				rfidMessage = new UnitMessage(UnitMessageType.Rfid, rfidValueCurrent);
+				mfw.SendMessage(rfidMessage);
+				rfidValuePrevious = rfidValueCurrent;
 			}
-
-			LCD.clear(4);
-			LCD.clear(5);
-			LCD.drawString(rfidValueCurrent, 0, 4, false);
-			LCD.drawString(Integer.toString(rfidSensor.getStatus()), 0, 5, false);
-
-			rfidMessage = new UnitMessage(UnitMessageType.Command, "rfid " + rfidValueCurrent);
-			mfw.SendMessage(rfidMessage);
-			rfidValuePrevious = rfidValueCurrent;
 		}
 		Sound.buzz();
-		UnitMessage stopMessage = new UnitMessage(UnitMessageType.Command, "stop");
+		UnitMessage stopMessage = new UnitMessage(UnitMessageType.Stop, "Escape Button pressed");
 		mfw.SendMessage(stopMessage);
 	}
 
