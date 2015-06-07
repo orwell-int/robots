@@ -34,21 +34,6 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
-                    <compilerArguments>
-                        <verbose />
-                        <!-- Here we force the load of classes.jar because leJOS does not
-                         use the standard java.lang classes but has its own versions in classes.jar. -->
-                        <bootclasspath>${project.dependencies}</bootclasspath>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
 
                     <compilerArguments>
                         <verbose />
