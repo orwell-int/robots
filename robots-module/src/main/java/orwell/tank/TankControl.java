@@ -61,22 +61,17 @@ class TankControl extends Thread implements MessageListenerInterface {
 		new TankControl().run();
 	}
 
-	// public boolean isAlive(){
-	// return remoteCtrlAlive;
-	// }
-
 	public void receivedNewMessage(UnitMessage msg) {
+        PayloadBOM payloadBOM = new PayloadBOM(msg.getPayload());
 		LCD.drawString("Command: " + msg.getPayload(), 0, 5);
 		if (msg.getPayload().equals("stop")) {
-			motorLeft.stop();
-			motorRight.stop();
+			stopAllMotors();
 			LCD.clearDisplay();
 			LCD.drawString("STOP", 0, 6);
 		}
 
 		else if (msg.getPayload().equals("stopPrg")) {
-			motorLeft.stop();
-			motorRight.stop();
+			stopAllMotors();
 			LCD.clearDisplay();
 			LCD.drawString("PROGRAM STOPPED", 0, 6);
 			stop_robot();
@@ -124,14 +119,26 @@ class TankControl extends Thread implements MessageListenerInterface {
 					motorRight.stop();
 			} else if (inputType.startsWith("fire")) {
 				Sound.buzz();
+			} else if (inputType.startsWith("vict")) {
+				stopAllMotors();
+				Sound.beepSequenceUp();
+			} else if (inputType.startsWith("fail")) {
+				stopAllMotors();
+				Sound.buzz();
+			} else if (inputType.startsWith("draw")) {
+				stopAllMotors();
+				Sound.beepSequence();
 			} else {
 				LCD.drawString("Input Nomatch", 0, 5);
 			}
-			// LCD.clearDisplay();
-			// LCD.drawString("Input order received: ", 0, 1);
 		} else {
 			LCD.drawString("No match", 0, 1);
 		}
 
+	}
+
+	public void stopAllMotors() {
+		motorLeft.stop();
+		motorRight.stop();
 	}
 }
