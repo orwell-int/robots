@@ -43,6 +43,7 @@ export NXJ_HOME=leJOS_NXJ_0.9.1beta-3
 
 Run maven install, specifing the name of your NXT device on which you want to run the program
 ```
+mvn validate
 mvn clean install -Drobotname=YourRobotNameHere
 ```
 
