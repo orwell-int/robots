@@ -13,12 +13,15 @@ import lejos.nxt.addon.RFIDSensor;
  */
 class TankControl extends Thread implements MessageListenerInterface {
 	protected volatile boolean remoteCtrlAlive;
+	private Tank tank;
 
 	NXTMotor motorLeft = new NXTMotor(MotorPort.B);
 	NXTMotor motorRight = new NXTMotor(MotorPort.C);
 	RFIDSensor rfidSensor = new RFIDSensor(SensorPort.S2);
 
 	public void run() {
+		tank = new Tank();
+
 		remoteCtrlAlive = true;
 
 		LCD.drawString(" Waiting for PC ", 0, 5, true);
@@ -67,6 +70,10 @@ class TankControl extends Thread implements MessageListenerInterface {
 
 	public void receivedNewMessage(UnitMessage msg) {
 		LCD.drawString("Command: " + msg.getPayload(), 0, 5);
+
+		IActionVisitor IActionVisitor = UnitMessageDecoder.parseFrom(msg);
+		tank.accept(IActionVisitor);
+
 		if (msg.getPayload().equals("stop")) {
 			motorLeft.stop();
 			motorRight.stop();
