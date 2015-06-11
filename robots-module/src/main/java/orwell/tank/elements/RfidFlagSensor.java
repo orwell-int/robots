@@ -6,14 +6,14 @@ import lejos.nxt.addon.RFIDSensor;
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
-public class FlagSensor extends RFIDSensor {
+public class RfidFlagSensor extends RFIDSensor {
     /**
      * Create a class to provide access to the device. Perform device
      * initialization.
      *
      * @param port The sensor port to use for this device.
      */
-    public FlagSensor(I2CPort port) {
+    public RfidFlagSensor(I2CPort port) {
         super(port);
     }
 }

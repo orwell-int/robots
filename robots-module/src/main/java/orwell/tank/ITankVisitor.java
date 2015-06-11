@@ -1,7 +1,8 @@
 package orwell.tank;
 
-import orwell.tank.elements.FlagSensor;
-import orwell.tank.elements.Wheel;
+import orwell.tank.elements.RfidFlagSensor;
+import orwell.tank.elements.SoundSpeaker;
+import orwell.tank.elements.DrivingTracksRegulated;
 
 /**
  * Created by Michaël Ludmann on 6/10/15.
@@ -9,7 +10,9 @@ import orwell.tank.elements.Wheel;
 public interface ITankVisitor {
     void visit(Tank tank);
 
-    void visit(Wheel wheel);
+    void visit(DrivingTracksRegulated wheel);
 
-    void visit(FlagSensor flagSensor);
+    void visit(RfidFlagSensor rfidFlagSensor);
+
+    void visit(SoundSpeaker speaker);
 }

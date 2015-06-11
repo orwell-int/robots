@@ -4,14 +4,13 @@ import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
 import orwell.tank.actions.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
 public class UnitMessageDecoder {
-    private static final byte UNIT_MESSAGE_SEPARATOR = 0x32;
+    private static final char UNIT_MESSAGE_SEPARATOR = ' ';
 
     public static IActionVisitor parseFrom(UnitMessage msg) {
         if (UnitMessageType.Command != msg.getMsgType())
@@ -31,8 +30,10 @@ public class UnitMessageDecoder {
                 return new StopTank(payloadBody);
             case "stopPrg":
                 return new StopProgram(payloadBody);
-            case "input":
-                return new Input(payloadBody);
+            case "move":
+                return new Move(payloadBody);
+            case "fire":
+                return new Fire(payloadBody);
             case "game":
                 return new GameState(payloadBody);
             default:
