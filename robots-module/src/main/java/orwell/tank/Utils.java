@@ -20,30 +20,30 @@ public class Utils {
      *         if limit = 1: returns the first element result of the split (i.e.
      *         a list of one byte[] stopping at the first separator)
      */
-    public static List<String> split(final byte separator, final String input, final int limit) {
-        final byte[] inputBytes = input.getBytes();
+    public static List<String> split(final char separator, final String input, final int limit) {
         final List<String> list = new LinkedList<>();
         if (0 == limit) {
             return list;
         }
 
-        int blockStart = 0;
-        if (1 != limit) {
-            int blockEnd = 0;
-            final boolean limited = 0 < limit;
-            while (blockEnd < inputBytes.length && (!limited || limit > list.size())) {
-                if (separator == inputBytes[blockEnd]) {
-                    list.add(Arrays.copyOfRange(inputBytes, blockStart, blockEnd).toString());
-                    blockStart = blockEnd + 1;
-                }
-                blockEnd++;
+        StringBuilder stringBuilder = new StringBuilder();
+        int position = 0;
+        final boolean limited = 0 < limit;
+        while (position < input.length() && (!limited || limit > list.size())) {
+            if (separator == input.charAt(position)) {
+                list.add(stringBuilder.toString());
+                stringBuilder.setLength(0); // reset the builder
+            } else {
+                stringBuilder.append(input.charAt(position));
             }
+            position++;
         }
-        list.add(Arrays.copyOfRange(inputBytes, blockStart, inputBytes.length).toString());
+        if (1 != limit)
+            list.add(stringBuilder.toString());
         return list;
     }
 
-    public static List<String> split(final byte separator, final String input) {
+    public static List<String> split(final char separator, final String input) {
         return split(separator, input, -1);
     }
 }
