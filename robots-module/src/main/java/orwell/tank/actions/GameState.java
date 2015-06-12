@@ -2,9 +2,9 @@ package orwell.tank.actions;
 
 import orwell.tank.IActionVisitor;
 import orwell.tank.Tank;
+import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
-import orwell.tank.elements.DrivingTracksRegulated;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class GameState implements IActionVisitor {
     }
 
     @Override
-    public void visit(DrivingTracksRegulated wheel) {
+    public void visit(IDrivingTracks tracks) {
 
     }
 

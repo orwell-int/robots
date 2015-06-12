@@ -1,6 +1,5 @@
 package orwell.tank.elements;
 
-import lejos.nxt.Battery;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.TachoMotorPort;
 
@@ -10,6 +9,7 @@ import lejos.nxt.TachoMotorPort;
  */
 public class DrivingTracksRegulated implements IDrivingTracks {
     private static final float SPEED_REDUC_FACTOR = 0.85f;
+    private static final int RECOIL_ROTATION_DEGRES = 180;
     private final NXTRegulatedMotor leftMotor;
     private final NXTRegulatedMotor rightMotor;
     private DrivingTracksMemento drivingTracksMemento;
@@ -25,9 +25,8 @@ public class DrivingTracksRegulated implements IDrivingTracks {
     public void setPower(double powerLeft, double powerRight) {
         this.powerLeft = powerLeft;
         this.powerRight = powerRight;
-        float batteryVoltage = Battery.getVoltage();
-        setPowerToMotor(leftMotor, (float) powerLeft * batteryVoltage);
-        setPowerToMotor(rightMotor, (float) powerRight * batteryVoltage);
+        setPowerToMotor(leftMotor, (float) powerLeft);
+        setPowerToMotor(rightMotor, (float) powerRight);
     }
 
     @Override
@@ -39,23 +38,24 @@ public class DrivingTracksRegulated implements IDrivingTracks {
     @Override
     public void simulateRecoil() {
         drivingTracksMemento = saveToMemento();
-
-        leftMotor.rotate(180);
-        rightMotor.rotate(180);
-        restoreFromMememto(drivingTracksMemento);
+        leftMotor.setSpeed(leftMotor.getMaxSpeed());
+        rightMotor.setSpeed(rightMotor.getMaxSpeed());
+        leftMotor.rotate(RECOIL_ROTATION_DEGRES);
+        rightMotor.rotate(RECOIL_ROTATION_DEGRES);
+        restoreFromMemento(drivingTracksMemento);
     }
 
     private DrivingTracksMemento saveToMemento() {
         return new DrivingTracksMemento(this.powerLeft, this.powerRight);
     }
 
-    private void restoreFromMememto(DrivingTracksMemento memento) {
+    private void restoreFromMemento(DrivingTracksMemento memento) {
         if (null != memento)
             setPower(memento.getSavedPowerLeft(), memento.getSavedPowerRight());
     }
 
     private void setPowerToMotor(NXTRegulatedMotor motor, float power) {
-        motor.setSpeed(power * SPEED_REDUC_FACTOR);
+        motor.setSpeed(power * SPEED_REDUC_FACTOR  * motor.getMaxSpeed());
         if (0 < power)
             motor.backward();
         else if (0 > power)

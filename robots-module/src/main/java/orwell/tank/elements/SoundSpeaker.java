@@ -1,9 +1,10 @@
 package orwell.tank.elements;
 
 import lejos.nxt.Sound;
-import orwell.tank.IActionVisitor;
 import orwell.tank.actions.Fire;
 import orwell.tank.actions.Move;
+import orwell.tank.actions.StopProgram;
+import orwell.tank.actions.StopTank;
 
 import java.util.Queue;
 
@@ -12,6 +13,8 @@ import java.util.Queue;
  */
 public class SoundSpeaker {
     private static final int VOLUME = 75;
+    private static final int G5_FREQ = 784;
+    private static final int G3_FREQ = 196;
     private SoundPlayer player;
     private boolean shouldContinue;
     private Queue<Tone> toneQueue;
@@ -44,9 +47,25 @@ public class SoundSpeaker {
 
     public void playActionTone(Fire fire) {
         if (fire.hasLeftWeaponFired())
-            playTone(150, 100);
-        if (fire.hasRightWeaponFired())
-            playTone(250, 150);
+            playTone(250, 100);
+        if (fire.hasRightWeaponFired()) // bigger weapon
+            playTone(150, 150);
+    }
+
+    public void playActionTone(StopProgram stopProgram) {
+        for (int i = 4; i < 12; i++)
+        {
+            playTone(G5_FREQ * i / 4, 100);
+            playTone(10000, 100);
+        }
+    }
+
+    public void playActionTone(StopTank stopTank) {
+        for (int i = 4; i < 12; i++)
+        {
+            playTone(G3_FREQ * i / 4, 100);
+            playTone(10000, 100);
+        }
     }
 
     private class SoundPlayer extends Thread {

@@ -2,9 +2,9 @@ package orwell.tank.actions;
 
 import orwell.tank.IActionVisitor;
 import orwell.tank.Tank;
+import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
-import orwell.tank.elements.DrivingTracksRegulated;
 
 import java.util.List;
 
@@ -44,8 +44,9 @@ public class Fire implements IActionVisitor {
     }
 
     @Override
-    public void visit(DrivingTracksRegulated tracks) {
-        tracks.simulateRecoil();
+    public void visit(IDrivingTracks tracks) {
+        if (hasRightWeaponFired()) // bigger weapon
+            tracks.simulateRecoil();
     }
 
     @Override

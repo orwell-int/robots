@@ -1,5 +1,6 @@
 package orwell.tank;
 
+import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 import orwell.tank.elements.DrivingTracksRegulated;
@@ -10,7 +11,7 @@ import orwell.tank.elements.DrivingTracksRegulated;
 public interface ITankVisitor {
     void visit(Tank tank);
 
-    void visit(DrivingTracksRegulated wheel);
+    void visit(IDrivingTracks tracks);
 
     void visit(RfidFlagSensor rfidFlagSensor);
 
