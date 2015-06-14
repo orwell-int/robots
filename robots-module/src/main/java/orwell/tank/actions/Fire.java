@@ -2,6 +2,7 @@ package orwell.tank.actions;
 
 import orwell.tank.IActionVisitor;
 import orwell.tank.Tank;
+import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
@@ -57,5 +58,10 @@ public class Fire implements IActionVisitor {
     @Override
     public void visit(SoundSpeaker speaker) {
         speaker.playActionTone(this);
+    }
+
+    @Override
+    public void visit(DisplayScreen screen) {
+        screen.printAction(this);
     }
 }
