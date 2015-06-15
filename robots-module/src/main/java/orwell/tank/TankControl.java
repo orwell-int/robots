@@ -5,7 +5,8 @@ import lejos.nxt.*;
 import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.nxt.MessageFrameworkNXT;
-import lejos.nxt.addon.RFIDSensor;
+import orwell.tank.inputs.ConnectedToPC;
+import orwell.tank.inputs.WaitForPC;
 
 
 /**
@@ -15,21 +16,14 @@ class TankControl extends Thread implements MessageListenerInterface {
 	protected volatile boolean remoteCtrlAlive;
 	private Tank tank;
 
-	NXTMotor motorLeft = new NXTMotor(MotorPort.B);
-	NXTMotor motorRight = new NXTMotor(MotorPort.C);
-	RFIDSensor rfidSensor = new RFIDSensor(SensorPort.S2);
+	public TankControl(Tank tank) {
+		this.tank = tank;
+	}
 
 	public void run() {
-		tank = new Tank();
-
 		remoteCtrlAlive = true;
 
-		LCD.drawString(" Waiting for PC ", 0, 5, true);
-		MessageFrameworkNXT mfw = MessageFrameworkNXT.getInstance();
-		mfw.addMessageListener(this);
-		mfw.StartListen();
-		LCD.drawString("Connected!", 0, 5, true);
-		Sound.beep();
+
 
 		UnitMessage rfidMessage;
 		String rfidValueCurrent;
@@ -61,15 +55,27 @@ class TankControl extends Thread implements MessageListenerInterface {
 	}
 
 	public static void main(String[] args) {
-		new TankControl().run();
+		Tank tank = new Tank();
+		TankControl tankControl = new TankControl(tank);
+		tankControl.startRemoteControl();
+	}
+
+	private void startRemoteControl() {
+		waitForConnectionToProxy();
+		start();
+	}
+
+	private void waitForConnectionToProxy() {
+		tank.accept(new WaitForPC());
+		MessageFrameworkNXT mfw = MessageFrameworkNXT.getInstance();
+		mfw.addMessageListener(this);
+		mfw.StartListen();
+		tank.accept(new ConnectedToPC());
 	}
 
 	public void receivedNewMessage(UnitMessage msg) {
-        PayloadBOM payloadBOM = new PayloadBOM(msg.getPayload());
-		LCD.drawString("Command: " + msg.getPayload(), 0, 5);
-
-		IActionVisitor IActionVisitor = UnitMessageDecoder.parseFrom(msg);
-		tank.accept(IActionVisitor);
+		IInputVisitor IInputVisitor = UnitMessageDecoder.parseFrom(msg);
+		tank.accept(IInputVisitor);
 
 //		if (msg.getPayload().equals("stop")) {
 //			stopAllMotors();
@@ -142,10 +148,5 @@ class TankControl extends Thread implements MessageListenerInterface {
 //			LCD.drawString("No match", 0, 1);
 //		}
 
-	}
-
-	public void stopAllMotors() {
-		motorLeft.stop();
-		motorRight.stop();
 	}
 }

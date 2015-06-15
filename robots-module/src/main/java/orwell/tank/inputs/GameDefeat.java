@@ -1,4 +1,4 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;

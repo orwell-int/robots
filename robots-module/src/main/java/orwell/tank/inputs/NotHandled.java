@@ -1,17 +1,19 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
+import orwell.tank.IInputVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
+import java.util.List;
+
 /**
- * Created by parapampa on 07/06/15.
+ * Created by Michaël Ludmann on 6/10/15.
  */
-public class GameDraw implements IGameState {
-    @Override
-    public void visit(DisplayScreen screen) {
+public class NotHandled implements IInputVisitor {
+    public NotHandled(List<String> payloadBody) {
 
     }
 
@@ -32,6 +34,11 @@ public class GameDraw implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
+
+    }
+
+    @Override
+    public void visit(DisplayScreen screen) {
 
     }
 }

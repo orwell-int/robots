@@ -1,4 +1,4 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
@@ -9,7 +9,7 @@ import orwell.tank.elements.SoundSpeaker;
 /**
  * Created by parapampa on 07/06/15.
  */
-public class GameVictory implements IGameState {
+public class GameDraw implements IGameState {
     @Override
     public void visit(DisplayScreen screen) {
 

@@ -1,22 +1,16 @@
-package orwell.tank.actions;
+package orwell.tank.events;
 
-import orwell.tank.IActionVisitor;
+import orwell.tank.IEventWatcherVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
-import java.util.List;
-
 /**
- * Created by Michaël Ludmann on 6/10/15.
+ * Created by Michaël Ludmann on 6/15/15.
  */
-public class NotHandled implements IActionVisitor {
-    public NotHandled(List<String> payloadBody) {
-
-    }
-
+public class RfidEvent implements IEventWatcherVisitor {
     @Override
     public void visit(Tank tank) {
 

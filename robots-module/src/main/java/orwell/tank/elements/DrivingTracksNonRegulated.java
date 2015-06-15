@@ -1,9 +1,6 @@
 package orwell.tank.elements;
 
-import lejos.nxt.Battery;
 import lejos.nxt.NXTMotor;
-import lejos.nxt.NXTRegulatedMotor;
-import lejos.nxt.TachoMotorPort;
 
 import static java.lang.Math.abs;
 
@@ -15,9 +12,9 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
     private final NXTMotor leftMotor;
     private final NXTMotor rightMotor;
 
-    public DrivingTracksNonRegulated(TachoMotorPort motorPortLeft, TachoMotorPort motorPortRight) {
-        leftMotor = new NXTMotor(motorPortLeft);
-        rightMotor = new NXTMotor(motorPortRight);
+    public DrivingTracksNonRegulated(NXTMotor leftMotor, NXTMotor rightMotor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
     }
 
     @Override

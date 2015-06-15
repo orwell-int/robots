@@ -1,6 +1,6 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
-import orwell.tank.IActionVisitor;
+import orwell.tank.IInputVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Michaël Ludmann on 6/11/15.
  */
-public class Fire implements IActionVisitor {
+public class Fire implements IInputVisitor {
     private final boolean hasFire;
     private boolean leftWeapon;
     private boolean rightWeapon;

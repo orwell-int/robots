@@ -1,7 +1,6 @@
 package orwell.tank.elements;
 
 import lejos.nxt.NXTRegulatedMotor;
-import lejos.nxt.TachoMotorPort;
 
 
 /**
@@ -9,16 +8,16 @@ import lejos.nxt.TachoMotorPort;
  */
 public class DrivingTracksRegulated implements IDrivingTracks {
     private static final float SPEED_REDUC_FACTOR = 0.85f;
-    private static final int RECOIL_ROTATION_DEGRES = 180;
+    public static final int RECOIL_ROTATION_DEGRES = 180;
     private final NXTRegulatedMotor leftMotor;
     private final NXTRegulatedMotor rightMotor;
     private DrivingTracksMemento drivingTracksMemento;
     private double powerLeft;
     private double powerRight;
 
-    public DrivingTracksRegulated(TachoMotorPort motorPortLeft, TachoMotorPort motorPortRight) {
-        leftMotor = new NXTRegulatedMotor(motorPortLeft);
-        rightMotor = new NXTRegulatedMotor(motorPortRight);
+    public DrivingTracksRegulated(NXTRegulatedMotor leftMotor, NXTRegulatedMotor rightMotor) {
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
     }
 
     @Override

@@ -1,6 +1,6 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
-import orwell.tank.IActionVisitor;
+import orwell.tank.IInputVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
-public class Move implements IActionVisitor {
+public class Move implements IInputVisitor {
     private double leftMove;
     private double rightMove;
     private boolean hasMove;
@@ -29,6 +29,14 @@ public class Move implements IActionVisitor {
 
     public boolean hasMove() {
         return hasMove;
+    }
+
+    public double getRightMove() {
+        return rightMove;
+    }
+
+    public double getLeftMove() {
+        return leftMove;
     }
 
     @Override

@@ -1,6 +1,6 @@
-package orwell.tank.actions;
+package orwell.tank.inputs;
 
-import orwell.tank.IActionVisitor;
+import orwell.tank.IInputVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
-public class StopTank implements IActionVisitor {
+public class StopTank implements IInputVisitor {
     public StopTank(List<String> payloadBody) {
 
     }
@@ -34,11 +34,11 @@ public class StopTank implements IActionVisitor {
 
     @Override
     public void visit(SoundSpeaker speaker) {
-        speaker.playActionTone(this);
+        speaker.playStopTank();
     }
 
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printStopTank();
     }
 }

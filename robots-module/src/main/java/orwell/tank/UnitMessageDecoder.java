@@ -2,7 +2,7 @@ package orwell.tank;
 
 import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
-import orwell.tank.actions.*;
+import orwell.tank.inputs.*;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class UnitMessageDecoder {
     private static final char UNIT_MESSAGE_SEPARATOR = ' ';
 
-    public static IActionVisitor parseFrom(UnitMessage msg) {
+    public static IInputVisitor parseFrom(UnitMessage msg) {
         if (UnitMessageType.Command != msg.getMsgType())
             return null;
         List<String> payloadArray = Utils.split(UNIT_MESSAGE_SEPARATOR, msg.getPayload());

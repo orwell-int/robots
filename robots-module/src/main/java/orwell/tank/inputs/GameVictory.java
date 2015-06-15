@@ -1,14 +1,19 @@
-package orwell.tank;
+package orwell.tank.inputs;
 
+import orwell.tank.Tank;
+import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
 /**
- * Created by Michaël Ludmann on 6/10/15.
+ * Created by parapampa on 07/06/15.
  */
-public class DisplayVisitor implements ITankVisitor {
+public class GameVictory implements IGameState {
+    @Override
+    public void visit(DisplayScreen screen) {
 
+    }
 
     @Override
     public void visit(Tank tank) {
@@ -29,6 +34,4 @@ public class DisplayVisitor implements ITankVisitor {
     public void visit(SoundSpeaker speaker) {
 
     }
-
-
 }
