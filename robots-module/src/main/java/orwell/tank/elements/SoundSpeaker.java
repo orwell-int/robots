@@ -14,6 +14,7 @@ public class SoundSpeaker {
     private static final int G5_FREQ = 784;
     private static final int G4_FREQ = 392;
     private static final int G3_FREQ = 196;
+    private static final int G2_FREQ = 98;
     private SoundPlayer player;
     private volatile boolean shouldContinue;
     private Queue<Tone> toneQueue;
@@ -76,6 +77,14 @@ public class SoundSpeaker {
 
     public void playConnectedToPC() {
         playTone(G4_FREQ, 300);
+    }
+
+    public void playStartTank() {
+        for (int i = 4; i < 12; i++)
+        {
+            playTone(G2_FREQ * i / 4, 100);
+            playTone(10000, 100);
+        }
     }
 
     private class SoundPlayer extends Thread {

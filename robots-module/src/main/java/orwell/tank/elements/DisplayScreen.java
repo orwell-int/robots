@@ -13,10 +13,13 @@ public class DisplayScreen extends LCD {
     private static final int FIRE_LINE = 3;
     private static final int CONNECTED_LINE = 6;
     private static final int STOP_TANK_LINE = 5;
+    private static final int START_TANK_LINE = 5;
+
     private static final boolean IS_FIRE_INVERTED = false;
     private static final boolean IS_WAITING_INVERTED = true;
     private static final boolean IS_CONNECTED_INVERTED = true;
     private static final boolean IS_STOP_TANK_INVERTED = false;
+    private static final boolean IS_START_TANK_INVERTED = false;
 
 
     public void printWaitingForPC() {
@@ -43,5 +46,10 @@ public class DisplayScreen extends LCD {
     public void printStopTank() {
         LCD.clear(STOP_TANK_LINE);
         LCD.drawString("TANK STOPPED", 0, STOP_TANK_LINE, IS_STOP_TANK_INVERTED);
+    }
+
+    public void printStartTank() {
+        LCD.clear(START_TANK_LINE);
+        LCD.drawString("TANK STARTED", 0, START_TANK_LINE, IS_START_TANK_INVERTED);
     }
 }

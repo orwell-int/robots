@@ -1,20 +1,20 @@
-package orwell.tank.inputs;
+package orwell.tank;
 
-import orwell.tank.IInputVisitor;
-import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
-
-import java.util.List;
+import orwell.tank.states.RfidState;
 
 /**
- * Created by Michaël Ludmann on 6/10/15.
+ * Created by Michaël Ludmann on 6/16/15.
  */
-public class StopTank implements IInputVisitor {
-    public StopTank(List<String> payloadBody) {
+public class StateSenderVisitor implements ITankVisitor {
 
+    private final UnitMessageBroker unitMessageBroker;
+
+    public StateSenderVisitor(UnitMessageBroker unitMessageBroker) {
+        this.unitMessageBroker = unitMessageBroker;
     }
 
     @Override
@@ -24,21 +24,21 @@ public class StopTank implements IInputVisitor {
 
     @Override
     public void visit(IDrivingTracks tracks) {
-        tracks.stop();
+
     }
 
     @Override
     public void visit(RfidFlagSensor rfidFlagSensor) {
-        rfidFlagSensor.stopReading();
+        unitMessageBroker.sendState(new RfidState(rfidFlagSensor.getRfidValue()));
     }
 
     @Override
     public void visit(SoundSpeaker speaker) {
-        speaker.playStopTank();
+
     }
 
     @Override
     public void visit(DisplayScreen screen) {
-        screen.printStopTank();
+
     }
 }

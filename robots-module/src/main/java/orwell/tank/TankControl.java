@@ -6,6 +6,7 @@ import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.nxt.MessageFrameworkNXT;
 import orwell.tank.inputs.ConnectedToPC;
+import orwell.tank.inputs.StartTank;
 import orwell.tank.inputs.WaitForPC;
 
 
@@ -14,16 +15,18 @@ import orwell.tank.inputs.WaitForPC;
  */
 class TankControl extends Thread implements MessageListenerInterface {
 	protected volatile boolean remoteCtrlAlive;
-	private Tank tank;
+	private final Tank tank;
+	private final MessageFrameworkNXT messageFramework;
+	private final UnitMessageBroker unitMessageBroker;
 
 	public TankControl(Tank tank) {
 		this.tank = tank;
+		this.messageFramework = MessageFrameworkNXT.getInstance();
+		this.unitMessageBroker = new UnitMessageBroker(messageFramework);
 	}
 
 	public void run() {
 		remoteCtrlAlive = true;
-
-
 
 		UnitMessage rfidMessage;
 		String rfidValueCurrent;
@@ -41,13 +44,15 @@ class TankControl extends Thread implements MessageListenerInterface {
 				LCD.drawString(Integer.toString(rfidSensor.getStatus()), 0, 5, false);
 
 				rfidMessage = new UnitMessage(UnitMessageType.Rfid, rfidValueCurrent);
-				mfw.SendMessage(rfidMessage);
+				messageFramework.SendMessage(rfidMessage);
 				rfidValuePrevious = rfidValueCurrent;
 			}
 		}
 		Sound.buzz();
 		UnitMessage stopMessage = new UnitMessage(UnitMessageType.Stop, "Escape Button pressed");
-		mfw.SendMessage(stopMessage);
+		messageFramework.SendMessage(stopMessage);
+
+		messageFramework.StopListen();
 	}
 
 	public void stop_robot() {
@@ -61,18 +66,26 @@ class TankControl extends Thread implements MessageListenerInterface {
 	}
 
 	private void startRemoteControl() {
+		tank.accept(new StartTank()); // Ready the tank
 		waitForConnectionToProxy();
 		start();
 	}
 
 	private void waitForConnectionToProxy() {
 		tank.accept(new WaitForPC());
-		MessageFrameworkNXT mfw = MessageFrameworkNXT.getInstance();
-		mfw.addMessageListener(this);
-		mfw.StartListen();
+
+		messageFramework.addMessageListener(this);
+		messageFramework.StartListen();
 		tank.accept(new ConnectedToPC());
 	}
 
+	private void checkTankState() {
+		StateSenderVisitor stateVisitor = new StateSenderVisitor(unitMessageBroker);
+		tank.accept(stateVisitor);
+	}
+
+
+	@Override
 	public void receivedNewMessage(UnitMessage msg) {
 		IInputVisitor IInputVisitor = UnitMessageDecoder.parseFrom(msg);
 		tank.accept(IInputVisitor);
