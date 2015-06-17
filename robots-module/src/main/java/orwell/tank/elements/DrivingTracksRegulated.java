@@ -1,5 +1,6 @@
 package orwell.tank.elements;
 
+import lejos.nxt.LCD;
 import lejos.nxt.NXTRegulatedMotor;
 
 
@@ -60,5 +61,14 @@ public class DrivingTracksRegulated implements IDrivingTracks {
             motor.forward();
         else
             motor.flt(true);
+    }
+
+    @Override
+    public void pause(int timeMs) {
+        try {
+            Thread.sleep(timeMs);
+        } catch (InterruptedException e) {
+            LCD.drawString(e.getMessage(), 0, 0);
+        }
     }
 }

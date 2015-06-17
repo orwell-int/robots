@@ -9,6 +9,8 @@ import orwell.tank.inputs.ConnectedToProxy;
 import orwell.tank.inputs.StartTank;
 import orwell.tank.inputs.StopProgram;
 import orwell.tank.inputs.WaitForProxy;
+import orwell.tank.messaging.UnitMessageBroker;
+import orwell.tank.messaging.UnitMessageDecoder;
 
 
 /**

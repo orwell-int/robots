@@ -45,6 +45,7 @@ public class Tank {
     }
 
     public void stop() {
+        setConnectionState(EnumConnectionState.NOT_CONNECTED);
     }
 
     public ArrayList<ISensor> getSensors() {

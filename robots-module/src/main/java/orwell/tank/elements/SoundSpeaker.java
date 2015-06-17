@@ -17,6 +17,8 @@ public class SoundSpeaker {
     private static final int G2_FREQ = 98;
     private static final int C4_FREQ = 262;
     private static final int C2_FREQ = 65;
+    private static final int D4_FREQ = 294;
+    private static final int E4_FREQ = 330;
     private SoundPlayer player;
     private volatile boolean shouldContinue;
     private final Queue<Tone> toneQueue;
@@ -97,6 +99,16 @@ public class SoundSpeaker {
 
     public void playNotHandled() {
         playTone(C2_FREQ, 200);
+    }
+
+    public void playVictory() {
+        playTone(C4_FREQ, 100);
+        playTone(10000, 100);
+        playTone(C4_FREQ, 100);
+        playTone(10000, 100);
+        playTone(D4_FREQ, 100);
+        playTone(10000, 100);
+        playTone(E4_FREQ, 100);
     }
 
     private class SoundPlayer extends Thread {

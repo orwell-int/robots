@@ -1,4 +1,4 @@
-package orwell.tank;
+package orwell.tank.messaging;
 
 import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import orwell.tank.IInputVisitor;
 import orwell.tank.inputs.Move;
 import orwell.tank.inputs.StopTank;
 

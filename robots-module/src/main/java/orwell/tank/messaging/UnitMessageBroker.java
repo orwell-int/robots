@@ -1,8 +1,12 @@
-package orwell.tank;
+package orwell.tank.messaging;
 
 import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.nxt.MessageFrameworkNXT;
+import orwell.tank.IInputVisitor;
+import orwell.tank.INewValueVisitor;
+import orwell.tank.ISensorListener;
+import orwell.tank.Tank;
 import orwell.tank.elements.ISensor;
 
 /**

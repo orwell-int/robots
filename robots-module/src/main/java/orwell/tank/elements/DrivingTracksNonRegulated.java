@@ -1,5 +1,6 @@
 package orwell.tank.elements;
 
+import lejos.nxt.LCD;
 import lejos.nxt.NXTMotor;
 
 import static java.lang.Math.abs;
@@ -21,6 +22,15 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
     public void setPower(double powerLeft, double powerRight) {
         setPowerToMotor(leftMotor, powerLeft);
         setPowerToMotor(rightMotor, powerLeft);
+    }
+
+    @Override
+    public void pause(int timeMs) {
+        try {
+            Thread.sleep(timeMs);
+        } catch (InterruptedException e) {
+            LCD.drawString(e.getMessage(), 0, 0);
+        }
     }
 
     @Override

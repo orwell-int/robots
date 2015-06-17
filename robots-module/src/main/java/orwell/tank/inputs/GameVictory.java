@@ -22,7 +22,9 @@ public class GameVictory implements IGameState {
 
     @Override
     public void visit(IDrivingTracks tracks) {
-
+        tracks.setPower(50, -50);
+        tracks.pause(1000);
+        tracks.setPower(-50, 50);
     }
 
     @Override
@@ -32,6 +34,6 @@ public class GameVictory implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
-
+        speaker.playVictory();
     }
 }

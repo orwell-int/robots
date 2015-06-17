@@ -7,6 +7,8 @@ public interface IDrivingTracks {
 
     void setPower(double powerLeft, double powerRight);
 
+    void pause(int timeMs);
+
     void stop();
 
     void simulateRecoil();
