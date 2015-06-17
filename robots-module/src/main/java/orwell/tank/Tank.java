@@ -4,12 +4,10 @@ import lejos.nxt.I2CPort;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
-import orwell.tank.elements.RfidFlagSensor;
-import orwell.tank.elements.DrivingTracksRegulated;
-import orwell.tank.elements.SoundSpeaker;
+import orwell.tank.elements.*;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.ArrayList;
+
 
 /**
  * Created by Michaël Ludmann on 6/10/15.
@@ -18,12 +16,13 @@ public class Tank {
     private static final lejos.nxt.TachoMotorPort MOTOR_PORT_LEFT = MotorPort.B;
     private static final lejos.nxt.TachoMotorPort MOTOR_PORT_RIGHT = MotorPort.C;
     private static final I2CPort RFID_PORT = SensorPort.S2;
-    private static final int THREAD_POOL_NUMBER = 2;
-    private String bluetoothName;
-    private String routingId;
+    private final DisplayScreen displayScreen;
     private final DrivingTracksRegulated drivingTracks;
     private final RfidFlagSensor rfidFlagSensor;
     private final SoundSpeaker soundSpeaker;
+    private String bluetoothName;
+    private String routingId;
+    private ArrayList<ISensor> sensors;
     private EnumConnectionState connectionState;
 
     public Tank() {
@@ -31,22 +30,25 @@ public class Tank {
                 new NXTRegulatedMotor(MOTOR_PORT_LEFT),
                 new NXTRegulatedMotor(MOTOR_PORT_RIGHT));
         this.rfidFlagSensor = new RfidFlagSensor(RFID_PORT);
+        sensors.add(rfidFlagSensor);
         this.soundSpeaker = new SoundSpeaker();
+        this.displayScreen = new DisplayScreen();
         setConnectionState(EnumConnectionState.NOT_CONNECTED);
     }
 
     public void accept(final ITankVisitor visitor) {
         visitor.visit(drivingTracks);
         visitor.visit(rfidFlagSensor);
+        visitor.visit(soundSpeaker);
+        visitor.visit(displayScreen);
         visitor.visit(this);
     }
 
     public void stop() {
-
     }
 
-    public RfidFlagSensor getRfidFlagSensor() {
-        return rfidFlagSensor;
+    public ArrayList<ISensor> getSensors() {
+        return sensors;
     }
 
     public EnumConnectionState getConnectionState() {

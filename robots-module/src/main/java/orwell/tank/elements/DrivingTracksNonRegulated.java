@@ -31,7 +31,7 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
 
     @Override
     public void simulateRecoil() {
-        
+
     }
 
     private void setPowerToMotor(NXTMotor motor, double power) {

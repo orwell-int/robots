@@ -1,6 +1,5 @@
 package orwell.tank;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +15,9 @@ public class Utils {
      * @param limit     max number of elements allowed in the returned list
      *                  If limit is < 0, then proceed as if there were no limit
      * @return list of bytes arrays, its size being of maximum {limit} elements
-     *         if limit = 0: returns empty list
-     *         if limit = 1: returns the first element result of the split (i.e.
-     *         a list of one byte[] stopping at the first separator)
+     * if limit = 0: returns empty list
+     * if limit = 1: returns the first element result of the split (i.e.
+     * a list of one byte[] stopping at the first separator)
      */
     public static List<String> split(final char separator, final String input, final int limit) {
         final List<String> list = new LinkedList<>();

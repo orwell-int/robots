@@ -1,7 +1,6 @@
 package orwell.tank.elements;
 
 import lejos.nxt.NXTRegulatedMotor;
-import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,7 +88,7 @@ public class DrivingTracksRegulatedTest {
         expectLastCall().once();
         leftMotor.setSpeed(MAX_SPEED);
         expectLastCall().once();
-        leftMotor.rotate(DrivingTracksRegulated.RECOIL_ROTATION_DEGRES);
+        leftMotor.rotate(DrivingTracksRegulated.RECOIL_ROTATION_DEGREES);
         expectLastCall().once();
         replay(leftMotor);
 
@@ -97,7 +96,7 @@ public class DrivingTracksRegulatedTest {
         expectLastCall().once();
         rightMotor.setSpeed(MAX_SPEED);
         expectLastCall().once();
-        rightMotor.rotate(DrivingTracksRegulated.RECOIL_ROTATION_DEGRES);
+        rightMotor.rotate(DrivingTracksRegulated.RECOIL_ROTATION_DEGREES);
         expectLastCall().once();
         replay(rightMotor);
 

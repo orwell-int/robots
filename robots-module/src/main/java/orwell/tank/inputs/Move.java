@@ -15,7 +15,7 @@ import java.util.List;
 public class Move implements IInputVisitor {
     private double leftMove;
     private double rightMove;
-    private boolean hasMove;
+    private final boolean hasMove;
 
     public Move(List<String> moveInput) {
         if (2 != moveInput.size()) {
@@ -63,6 +63,6 @@ public class Move implements IInputVisitor {
 
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printAction(this);
     }
 }

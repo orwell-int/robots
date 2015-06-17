@@ -7,11 +7,10 @@ import lejos.nxt.NXTRegulatedMotor;
  * Created by Michaël Ludmann on 6/10/15.
  */
 public class DrivingTracksRegulated implements IDrivingTracks {
-    private static final float SPEED_REDUC_FACTOR = 0.85f;
-    public static final int RECOIL_ROTATION_DEGRES = 180;
+    public static final int RECOIL_ROTATION_DEGREES = 180;
+    private static final float SPEED_REDUCE_FACTOR = 0.85f;
     private final NXTRegulatedMotor leftMotor;
     private final NXTRegulatedMotor rightMotor;
-    private DrivingTracksMemento drivingTracksMemento;
     private double powerLeft;
     private double powerRight;
 
@@ -36,11 +35,11 @@ public class DrivingTracksRegulated implements IDrivingTracks {
 
     @Override
     public void simulateRecoil() {
-        drivingTracksMemento = saveToMemento();
+        DrivingTracksMemento drivingTracksMemento = saveToMemento();
         leftMotor.setSpeed(leftMotor.getMaxSpeed());
         rightMotor.setSpeed(rightMotor.getMaxSpeed());
-        leftMotor.rotate(RECOIL_ROTATION_DEGRES);
-        rightMotor.rotate(RECOIL_ROTATION_DEGRES);
+        leftMotor.rotate(RECOIL_ROTATION_DEGREES);
+        rightMotor.rotate(RECOIL_ROTATION_DEGREES);
         restoreFromMemento(drivingTracksMemento);
     }
 
@@ -54,7 +53,7 @@ public class DrivingTracksRegulated implements IDrivingTracks {
     }
 
     private void setPowerToMotor(NXTRegulatedMotor motor, float power) {
-        motor.setSpeed(power * SPEED_REDUC_FACTOR  * motor.getMaxSpeed());
+        motor.setSpeed(power * SPEED_REDUCE_FACTOR * motor.getMaxSpeed());
         if (0 < power)
             motor.backward();
         else if (0 > power)

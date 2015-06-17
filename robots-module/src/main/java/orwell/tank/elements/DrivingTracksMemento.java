@@ -3,7 +3,7 @@ package orwell.tank.elements;
 /**
  * Created by Michaël Ludmann on 6/11/15.
  */
-public class DrivingTracksMemento {
+class DrivingTracksMemento {
     private final double powerLeft;
     private final double powerRight;
 

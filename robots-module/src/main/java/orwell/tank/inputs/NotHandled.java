@@ -34,11 +34,11 @@ public class NotHandled implements IInputVisitor {
 
     @Override
     public void visit(SoundSpeaker speaker) {
-
+        speaker.playNotHandled();
     }
 
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printNotHandled();
     }
 }

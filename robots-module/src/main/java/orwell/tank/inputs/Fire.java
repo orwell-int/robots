@@ -27,10 +27,6 @@ public class Fire implements IInputVisitor {
         }
     }
 
-    public boolean hasFire() {
-        return hasFire;
-    }
-
     public boolean hasLeftWeaponFired() {
         return leftWeapon;
     }

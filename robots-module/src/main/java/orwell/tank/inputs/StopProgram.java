@@ -19,7 +19,7 @@ public class StopProgram implements IInputVisitor {
 
     @Override
     public void visit(Tank tank) {
-
+        tank.stop();
     }
 
     @Override
@@ -39,6 +39,6 @@ public class StopProgram implements IInputVisitor {
 
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printNotConnected();
     }
 }

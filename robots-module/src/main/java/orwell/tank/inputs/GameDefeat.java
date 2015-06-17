@@ -7,7 +7,7 @@ import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
 /**
- * Created by parapampa on 07/06/15.
+ * Created by Michaël Ludmann on 07/06/15.
  */
 public class GameDefeat implements IGameState {
     @Override

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class GameState implements IInputVisitor {
     private final IGameState gameState;
+
     public GameState(List<String> gameStateInput) {
         if (1 != gameStateInput.size()) {
             gameState = null;

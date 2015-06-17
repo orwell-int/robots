@@ -1,23 +1,23 @@
 package orwell.tank.elements;
 
-import lejos.mf.common.UnitMessageType;
 import lejos.nxt.I2CPort;
 import lejos.nxt.addon.RFIDSensor;
 import lejos.util.Timer;
 import lejos.util.TimerListener;
 import orwell.tank.ISensorListener;
+import orwell.tank.events.RfidNewValue;
 
 import java.util.ArrayList;
 
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
-public class RfidFlagSensor extends RFIDSensor {
+public class RfidFlagSensor extends RFIDSensor implements ISensor {
 
     private static final int READ_RATE_MS = 50;
     private volatile long rfidValue;
-    private Timer timer;
-    private ArrayList<ISensorListener> sensorListenerList;
+    private final Timer timer;
+    private final ArrayList<ISensorListener> sensorListenerList;
 
     /**
      * Create a class to provide access to the device. Perform device
@@ -32,28 +32,27 @@ public class RfidFlagSensor extends RFIDSensor {
         timer = new Timer(READ_RATE_MS, new SensorReadService());
     }
 
+    @Override
     public void addSensorListener(ISensorListener sensorListener) {
         sensorListenerList.add(sensorListener);
     }
 
-    public void startReading() {
+    @Override
+    public void startListen() {
         timer.start();
     }
 
-    public void stopReading() {
+    @Override
+    public void stopListen() {
         timer.stop();
     }
 
-    public long getRfidValue() {
-        return rfidValue;
-    }
-
-    public void setRfidValue(long rfidValue) {
+    protected void setRfidValue(long rfidValue) {
         if (this.rfidValue == rfidValue)
             return;
         this.rfidValue = rfidValue;
         for (ISensorListener listener : sensorListenerList) {
-            listener.readNewValue(UnitMessageType.Rfid, Long.toString(rfidValue));
+            listener.receivedNewValue(new RfidNewValue(rfidValue));
         }
     }
 

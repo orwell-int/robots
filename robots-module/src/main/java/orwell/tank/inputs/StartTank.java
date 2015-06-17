@@ -23,7 +23,7 @@ public class StartTank implements IInputVisitor {
 
     @Override
     public void visit(RfidFlagSensor rfidFlagSensor) {
-        rfidFlagSensor.startReading();
+        rfidFlagSensor.startListen();
     }
 
     @Override

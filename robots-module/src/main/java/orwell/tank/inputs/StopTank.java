@@ -29,7 +29,7 @@ public class StopTank implements IInputVisitor {
 
     @Override
     public void visit(RfidFlagSensor rfidFlagSensor) {
-        rfidFlagSensor.stopReading();
+        rfidFlagSensor.stopListen();
     }
 
     @Override

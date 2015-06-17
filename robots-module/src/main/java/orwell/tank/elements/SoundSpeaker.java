@@ -15,9 +15,11 @@ public class SoundSpeaker {
     private static final int G4_FREQ = 392;
     private static final int G3_FREQ = 196;
     private static final int G2_FREQ = 98;
+    private static final int C4_FREQ = 262;
+    private static final int C2_FREQ = 65;
     private SoundPlayer player;
     private volatile boolean shouldContinue;
-    private Queue<Tone> toneQueue;
+    private final Queue<Tone> toneQueue;
 
     public SoundSpeaker() {
         toneQueue = new Queue<>();
@@ -25,7 +27,7 @@ public class SoundSpeaker {
     }
 
     private void startSoundSpeaker() {
-        if (! shouldContinue) {
+        if (!shouldContinue) {
             player = new SoundPlayer();
             player.setDaemon(true);
             shouldContinue = true;
@@ -37,7 +39,7 @@ public class SoundSpeaker {
         shouldContinue = false;
     }
 
-    public void playTone(int frequency, int duration) {
+    protected void playTone(int frequency, int duration) {
         toneQueue.addElement(new Tone(frequency, duration, VOLUME));
     }
 
@@ -53,24 +55,21 @@ public class SoundSpeaker {
     }
 
     public void playStopProgram() {
-        for (int i = 4; i < 12; i++)
-        {
+        for (int i = 4; i < 12; i++) {
             playTone(G5_FREQ * i / 4, 100);
             playTone(10000, 100);
         }
     }
 
     public void playStopTank() {
-        for (int i = 4; i < 12; i++)
-        {
+        for (int i = 4; i < 12; i++) {
             playTone(G3_FREQ * i / 4, 100);
             playTone(10000, 100);
         }
     }
 
     public void playWaitingForPC() {
-        for (int i = 4; i < 8; i++)
-        {
+        for (int i = 4; i < 8; i++) {
             playTone(G4_FREQ, 100);
         }
     }
@@ -80,18 +79,31 @@ public class SoundSpeaker {
     }
 
     public void playStartTank() {
-        for (int i = 4; i < 12; i++)
-        {
+        for (int i = 4; i < 12; i++) {
             playTone(G2_FREQ * i / 4, 100);
             playTone(10000, 100);
         }
+    }
+
+    public void playRfidNewValue() {
+        playTone(C4_FREQ, 100);
+        playTone(10000, 100);
+        playTone(C4_FREQ, 100);
+    }
+
+    private boolean shouldContinue() {
+        return shouldContinue;
+    }
+
+    public void playNotHandled() {
+        playTone(C2_FREQ, 200);
     }
 
     private class SoundPlayer extends Thread {
 
         @Override
         public void run() {
-            while(shouldContinue()) {
+            while (shouldContinue()) {
                 playNextSound();
             }
         }
@@ -102,9 +114,5 @@ public class SoundSpeaker {
                 Sound.playTone(tone.getFrequency(), tone.getDuration(), tone.getVolume());
             }
         }
-    }
-
-    private boolean shouldContinue() {
-        return shouldContinue;
     }
 }

@@ -11,7 +11,7 @@ import orwell.tank.elements.SoundSpeaker;
 /**
  * Created by Michaël Ludmann on 6/15/15.
  */
-public class ConnectedToPC implements IInputVisitor {
+public class ConnectedToProxy implements IInputVisitor {
     @Override
     public void visit(Tank tank) {
         tank.setConnectionState(EnumConnectionState.CONNECTED);

@@ -1,7 +1,5 @@
 package orwell.tank.elements;
 
-import lejos.nxt.NXTRegulatedMotor;
-
 /**
  * Created by Michaël Ludmann on 6/11/15.
  */
