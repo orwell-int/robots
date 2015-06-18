@@ -32,6 +32,6 @@ public class GameDraw implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
-
+        speaker.playDraw();
     }
 }

@@ -1,9 +1,11 @@
 package orwell.tank.elements;
 
+import lejos.nxt.Sound;
+
 /**
  * Created by Michaël Ludmann on 6/11/15.
  */
-class Tone {
+class Tone implements SoundElement {
     private final int frequency;
     private final int duration;
     private final int volume;
@@ -14,15 +16,8 @@ class Tone {
         this.volume = volume;
     }
 
-    public int getFrequency() {
-        return frequency;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public int getVolume() {
-        return volume;
+    @Override
+    public void play() {
+        Sound.playTone(frequency, duration, volume);
     }
 }

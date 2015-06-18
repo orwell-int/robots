@@ -1,10 +1,9 @@
 package orwell.tank.elements;
 
-import lejos.nxt.Sound;
 import orwell.tank.inputs.Fire;
 import orwell.tank.inputs.Move;
 
-import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Created by Michaël Ludmann on 6/11/15.
@@ -19,12 +18,14 @@ public class SoundSpeaker {
     private static final int C2_FREQ = 65;
     private static final int D4_FREQ = 294;
     private static final int E4_FREQ = 330;
+    private static final int B4_FREQ = 494;
+    private static final int A4_FREQ = 440;
+    private final LinkedList<SoundElement> soundElementQueue;
     private SoundPlayer player;
     private volatile boolean shouldContinue;
-    private final Queue<Tone> toneQueue;
 
     public SoundSpeaker() {
-        toneQueue = new Queue<>();
+        soundElementQueue = new LinkedList<>();
         startSoundSpeaker();
     }
 
@@ -42,7 +43,7 @@ public class SoundSpeaker {
     }
 
     protected void playTone(int frequency, int duration) {
-        toneQueue.addElement(new Tone(frequency, duration, VOLUME));
+        soundElementQueue.add(new Tone(frequency, duration, VOLUME));
     }
 
     public void playActionTone(Move move) {
@@ -59,14 +60,14 @@ public class SoundSpeaker {
     public void playStopProgram() {
         for (int i = 4; i < 12; i++) {
             playTone(G5_FREQ * i / 4, 100);
-            playTone(10000, 100);
+            pause(100);
         }
     }
 
     public void playStopTank() {
         for (int i = 4; i < 12; i++) {
             playTone(G3_FREQ * i / 4, 100);
-            playTone(10000, 100);
+            pause(100);
         }
     }
 
@@ -83,13 +84,13 @@ public class SoundSpeaker {
     public void playStartTank() {
         for (int i = 4; i < 12; i++) {
             playTone(G2_FREQ * i / 4, 100);
-            playTone(10000, 100);
+            pause(100);
         }
     }
 
     public void playRfidNewValue() {
         playTone(C4_FREQ, 100);
-        playTone(10000, 100);
+        pause(100);
         playTone(C4_FREQ, 100);
     }
 
@@ -103,12 +104,34 @@ public class SoundSpeaker {
 
     public void playVictory() {
         playTone(C4_FREQ, 100);
-        playTone(10000, 100);
+        pause(100);
         playTone(C4_FREQ, 100);
-        playTone(10000, 100);
+        pause(100);
         playTone(D4_FREQ, 100);
-        playTone(10000, 100);
+        pause(100);
         playTone(E4_FREQ, 100);
+    }
+
+    public void playDefeat() {
+        playTone(C4_FREQ, 100);
+        pause(100);
+        playTone(C4_FREQ, 100);
+        pause(100);
+        playTone(B4_FREQ, 100);
+        pause(100);
+        playTone(A4_FREQ, 500);
+    }
+
+    protected void pause(int timeMs) {
+        soundElementQueue.add(new Silence(timeMs));
+    }
+
+    public void playDraw() {
+        playTone(C4_FREQ, 100);
+        pause(100);
+        playTone(D4_FREQ, 100);
+        pause(100);
+        playTone(C4_FREQ, 100);
     }
 
     private class SoundPlayer extends Thread {
@@ -121,9 +144,9 @@ public class SoundSpeaker {
         }
 
         private void playNextSound() {
-            if (!toneQueue.empty()) {
-                Tone tone = (Tone) toneQueue.pop();
-                Sound.playTone(tone.getFrequency(), tone.getDuration(), tone.getVolume());
+            if (!soundElementQueue.isEmpty()) {
+                SoundElement soundElement = soundElementQueue.remove(0);
+                soundElement.play();
             }
         }
     }

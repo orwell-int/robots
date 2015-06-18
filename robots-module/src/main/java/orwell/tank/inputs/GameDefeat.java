@@ -32,6 +32,6 @@ public class GameDefeat implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
-
+        speaker.playDefeat();
     }
 }

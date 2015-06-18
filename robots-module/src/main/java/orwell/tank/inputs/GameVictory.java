@@ -25,6 +25,8 @@ public class GameVictory implements IGameState {
         tracks.setPower(50, -50);
         tracks.pause(1000);
         tracks.setPower(-50, 50);
+        tracks.pause(1000);
+        tracks.stop();
     }
 
     @Override
