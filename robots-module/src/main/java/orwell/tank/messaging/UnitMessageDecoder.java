@@ -3,7 +3,8 @@ package orwell.tank.messaging;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
 import orwell.tank.IInputVisitor;
-import orwell.tank.Utils;
+import orwell.tank.utils.Splice;
+import orwell.tank.utils.Split;
 import orwell.tank.inputs.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UnitMessageDecoder {
     public static IInputVisitor parseFrom(UnitMessage msg) {
         if (UnitMessageType.Command != msg.getMsgType())
             return null;
-        List<String> payloadArray = Utils.split(UNIT_MESSAGE_SEPARATOR, msg.getPayload());
+        List<String> payloadArray = Split.split(UNIT_MESSAGE_SEPARATOR, msg.getPayload());
 
         if (0 == payloadArray.size())
             return null;
@@ -26,7 +27,7 @@ public class UnitMessageDecoder {
         if (1 == payloadArray.size())
             payloadBody = null;
         else
-            payloadBody = payloadArray.subList(1, payloadArray.size());
+            payloadBody = Splice.subList(payloadArray, 1, payloadArray.size());
         switch (payloadHeader) {
             case "stop":
                 return new StopTank(payloadBody);

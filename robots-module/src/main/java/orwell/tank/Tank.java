@@ -30,6 +30,7 @@ public class Tank {
                 new NXTRegulatedMotor(MOTOR_PORT_LEFT),
                 new NXTRegulatedMotor(MOTOR_PORT_RIGHT));
         this.rfidFlagSensor = new RfidFlagSensor(RFID_PORT);
+        sensors = new ArrayList<>();
         sensors.add(rfidFlagSensor);
         this.soundSpeaker = new SoundSpeaker();
         this.displayScreen = new DisplayScreen();
