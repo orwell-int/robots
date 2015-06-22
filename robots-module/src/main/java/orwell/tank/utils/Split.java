@@ -1,4 +1,4 @@
-package orwell.tank;
+package orwell.tank.utils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
-public class Utils {
+public class Split {
     /**
      * Split a String around a byte separator, within a given limit
      *

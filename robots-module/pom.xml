@@ -92,6 +92,8 @@
                             <arguments>
                                 <argument>-v</argument>
                                 <argument>-oTankControl.nxj</argument>
+                                <argument>-od</argument>
+                                <argument>DebugInfo.nxd</argument>
                                 <argument>orwell.tank.TankControl</argument>
                                 <argument>--classpath</argument>
                                 <argument>.:../../../lejos-mf-nxt/lejos-mf-nxt-module/target/classes:../../../lejos-mf-nxt/lejos-mf-common/target/classes</argument>
