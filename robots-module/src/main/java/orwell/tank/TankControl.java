@@ -17,6 +17,7 @@ import orwell.tank.messaging.UnitMessageDecoder;
  * Thread to wait for a Bluetooth connection and execute remote commands
  */
 class TankControl extends Thread implements MessageListenerInterface {
+    private static final long THREAD_SLEEP_MS = 10;
     private final Tank tank;
     private volatile boolean isRemoteControlAlive;
     private MessageFrameworkNXT messageFramework;
@@ -36,7 +37,12 @@ class TankControl extends Thread implements MessageListenerInterface {
         isRemoteControlAlive = true;
 
         while (!Button.ESCAPE.isDown() && isRemoteControlAlive) {
-            continue;
+            try {
+                Thread.currentThread().sleep(THREAD_SLEEP_MS);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         stopProgram();
     }
