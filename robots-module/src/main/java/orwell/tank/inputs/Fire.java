@@ -21,8 +21,8 @@ public class Fire implements IInputVisitor {
         if (2 != fireInput.size()) {
             hasFire = false;
         } else {
-            leftWeapon = Boolean.getBoolean(fireInput.get(0));
-            rightWeapon = Boolean.getBoolean(fireInput.get(1));
+            leftWeapon = Boolean.parseBoolean(fireInput.get(0));
+            rightWeapon = Boolean.parseBoolean(fireInput.get(1));
             hasFire = true;
         }
     }

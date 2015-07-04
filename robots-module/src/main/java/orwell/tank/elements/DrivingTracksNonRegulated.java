@@ -21,7 +21,7 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
     @Override
     public void setPower(double powerLeft, double powerRight) {
         setPowerToMotor(leftMotor, powerLeft);
-        setPowerToMotor(rightMotor, powerLeft);
+        setPowerToMotor(rightMotor, powerRight);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
 
     @Override
     public void stop() {
-        leftMotor.flt();
-        rightMotor.flt();
+        leftMotor.stop();
+        rightMotor.stop();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
     }
 
     private void setPowerToMotor(NXTMotor motor, double power) {
-        motor.setPower((int) abs(power));
+        motor.setPower((int) (abs(power) * 100));
         if (0 < power)
             motor.backward();
         else if (0 > power)

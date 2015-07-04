@@ -1,9 +1,6 @@
 package orwell.tank;
 
-import lejos.nxt.I2CPort;
-import lejos.nxt.MotorPort;
-import lejos.nxt.NXTRegulatedMotor;
-import lejos.nxt.SensorPort;
+import lejos.nxt.*;
 import orwell.tank.elements.*;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ public class Tank {
     private static final lejos.nxt.TachoMotorPort MOTOR_PORT_RIGHT = MotorPort.C;
     private static final I2CPort RFID_PORT = SensorPort.S2;
     private final DisplayScreen displayScreen;
-    private final DrivingTracksRegulated drivingTracks;
+    private final IDrivingTracks drivingTracks;
     private final RfidFlagSensor rfidFlagSensor;
     private final SoundSpeaker soundSpeaker;
     private String bluetoothName;
@@ -26,9 +23,13 @@ public class Tank {
     private EnumConnectionState connectionState;
 
     public Tank() {
-        this.drivingTracks = new DrivingTracksRegulated(
-                new NXTRegulatedMotor(MOTOR_PORT_LEFT),
-                new NXTRegulatedMotor(MOTOR_PORT_RIGHT));
+//        this.drivingTracks = new DrivingTracksRegulated(
+//                new NXTRegulatedMotor(MOTOR_PORT_LEFT),
+//                new NXTRegulatedMotor(MOTOR_PORT_RIGHT));
+        this.drivingTracks = new DrivingTracksNonRegulated(
+                new NXTMotor(MOTOR_PORT_LEFT),
+                new NXTMotor(MOTOR_PORT_RIGHT)
+        );
         this.rfidFlagSensor = new RfidFlagSensor(RFID_PORT);
         sensors = new ArrayList<>();
         sensors.add(rfidFlagSensor);

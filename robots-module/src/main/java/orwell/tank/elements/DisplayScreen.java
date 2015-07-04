@@ -62,7 +62,7 @@ public class DisplayScreen extends LCD {
 
     public void printNewValue(RfidNewValue newValue) {
         LCD.clear(RFID_LINE);
-        LCD.drawString("RFID " + newValue, 0, RFID_LINE, IS_RFID_INVERTED);
+        LCD.drawString("RFID " + newValue.getValue(), 0, RFID_LINE, IS_RFID_INVERTED);
     }
 
     public void printAction(Fire fire) {

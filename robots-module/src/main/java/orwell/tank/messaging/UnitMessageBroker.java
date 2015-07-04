@@ -56,8 +56,10 @@ public class UnitMessageBroker implements MessageListenerInterface, ISensorListe
 
     @Override
     public void receivedNewValue(INewValueVisitor newValueVisitor) {
-        messageFramework.SendMessage(newValueVisitor.getUnitMessage());
-        tank.accept(newValueVisitor);
+        if (null != newValueVisitor.getUnitMessage()) {
+            messageFramework.SendMessage(newValueVisitor.getUnitMessage());
+            tank.accept(newValueVisitor);
+        }
     }
 
     @Override
