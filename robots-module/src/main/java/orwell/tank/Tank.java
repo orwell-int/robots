@@ -1,9 +1,6 @@
 package orwell.tank;
 
-import lejos.nxt.I2CPort;
-import lejos.nxt.MotorPort;
-import lejos.nxt.NXTRegulatedMotor;
-import lejos.nxt.SensorPort;
+import lejos.nxt.*;
 import orwell.tank.elements.*;
 
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ public class Tank {
     private String routingId;
     private ArrayList<ISensor> sensors;
     private EnumConnectionState connectionState;
+    private volatile boolean isTankAlive = false;
 
     public Tank() {
         this.drivingTracks = new DrivingTracksRegulated(
@@ -45,8 +43,17 @@ public class Tank {
         visitor.visit(this);
     }
 
-    public void stop() {
+    public void shutdown() {
+        this.isTankAlive = false;
         setConnectionState(EnumConnectionState.NOT_CONNECTED);
+    }
+
+    public void setIsTankAlive(boolean isTankAlive) {
+        this.isTankAlive = isTankAlive;
+    }
+
+    public boolean isAlive() {
+        return isTankAlive;
     }
 
     public ArrayList<ISensor> getSensors() {

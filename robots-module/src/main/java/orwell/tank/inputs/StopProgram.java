@@ -19,7 +19,7 @@ public class StopProgram implements IInputVisitor {
 
     @Override
     public void visit(Tank tank) {
-        tank.stop();
+        tank.shutdown();
     }
 
     @Override

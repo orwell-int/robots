@@ -65,10 +65,7 @@ public class SoundSpeaker {
     }
 
     public void playStopTank() {
-        for (int i = 4; i < 12; i++) {
-            playTone(G3_FREQ * i / 4, 100);
-            pause(100);
-        }
+        playTone(800,50);
     }
 
     public void playWaitingForPC() {

@@ -19,7 +19,6 @@ public class StopTank implements IInputVisitor {
 
     @Override
     public void visit(Tank tank) {
-
     }
 
     @Override

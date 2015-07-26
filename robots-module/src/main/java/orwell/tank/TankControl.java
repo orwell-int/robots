@@ -1,25 +1,21 @@
 package orwell.tank;
 
-import lejos.mf.common.MessageListenerInterface;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
 import lejos.mf.nxt.MessageFrameworkNXT;
 import lejos.nxt.Button;
 import orwell.tank.inputs.ConnectedToProxy;
 import orwell.tank.inputs.StartTank;
-import orwell.tank.inputs.StopProgram;
 import orwell.tank.inputs.WaitForProxy;
 import orwell.tank.messaging.UnitMessageBroker;
-import orwell.tank.messaging.UnitMessageDecoder;
 
 
 /**
  * Thread to wait for a Bluetooth connection and execute remote commands
  */
-class TankControl extends Thread implements MessageListenerInterface {
+class TankControl extends Thread {
     private static final long THREAD_SLEEP_MS = 10;
     private final Tank tank;
-    private volatile boolean isRemoteControlAlive;
     private MessageFrameworkNXT messageFramework;
     private UnitMessageBroker unitMessageBroker;
 
@@ -34,9 +30,9 @@ class TankControl extends Thread implements MessageListenerInterface {
     }
 
     public void run() {
-        isRemoteControlAlive = true;
+        tank.setIsTankAlive(true);
 
-        while (!Button.ESCAPE.isDown() && isRemoteControlAlive) {
+        while (!Button.ESCAPE.isDown() && tank.isAlive()) {
             try {
                 Thread.currentThread().sleep(THREAD_SLEEP_MS);
             } catch (InterruptedException e) {
@@ -48,13 +44,9 @@ class TankControl extends Thread implements MessageListenerInterface {
     }
 
     private void stopProgram() {
-        UnitMessage stopMessage = new UnitMessage(UnitMessageType.Stop, "Escape Button pressed");
+        UnitMessage stopMessage = new UnitMessage(UnitMessageType.Stop, "Tank Program Stopped");
         messageFramework.SendMessage(stopMessage);
-        unitMessageBroker.stopListen();
-    }
-
-    public void stopTankControl() {
-        isRemoteControlAlive = false;
+        stopMessageBroker();
     }
 
     private void startRemoteControl() {
@@ -76,12 +68,7 @@ class TankControl extends Thread implements MessageListenerInterface {
         unitMessageBroker.startListen();
     }
 
-    @Override
-    public void receivedNewMessage(UnitMessage msg) {
-        IInputVisitor IInputVisitor = UnitMessageDecoder.parseFrom(msg);
-        tank.accept(IInputVisitor);
-
-        if (IInputVisitor instanceof StopProgram)
-            stopTankControl();
+    private void stopMessageBroker() {
+        unitMessageBroker.stopListen();
     }
 }

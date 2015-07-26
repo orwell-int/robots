@@ -2,17 +2,12 @@ package orwell.tank.elements;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.IntrospectionException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Michaël Ludmann on 6/18/15.
