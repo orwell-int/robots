@@ -1,8 +1,6 @@
 package orwell.tank.utils;
 
-
 import java.io.*;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -16,11 +14,11 @@ public class IniFile {
         load(path);
     }
 
-    public void load(String path) {
-        File data = new File(path);
+    private void load(String path) {
+        File file = new File(path);
         try {
-            InputStream is = new FileInputStream(data);
-            config.load(is);
+            InputStream fileInputStream = new FileInputStream(file);
+            config.load(fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -46,6 +44,10 @@ public class IniFile {
 
     public boolean getBoolean(String key, boolean defaultValue) {
         return Boolean.parseBoolean(config.getProperty(key, Boolean.toString(defaultValue)));
+    }
+
+    public boolean getBoolean(String key) {
+        return Boolean.parseBoolean(config.getProperty(key));
     }
 
 }
