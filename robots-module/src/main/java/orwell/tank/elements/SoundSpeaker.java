@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * Created by Michaël Ludmann on 6/11/15.
  */
 public class SoundSpeaker {
-    private static final int VOLUME = 75;
+    private static final int VOLUME = 25;
     private static final int G5_FREQ = 784;
     private static final int G4_FREQ = 392;
     private static final int G3_FREQ = 196;
@@ -52,9 +52,9 @@ public class SoundSpeaker {
 
     public void playActionTone(Fire fire) {
         if (fire.hasLeftWeaponFired())
-            playTone(250, 100);
+            playTone(250, 300);
         if (fire.hasRightWeaponFired()) // bigger weapon
-            playTone(150, 150);
+            playTone(150, 800);
     }
 
     public void playStopProgram() {

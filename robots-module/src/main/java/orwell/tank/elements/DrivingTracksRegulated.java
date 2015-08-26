@@ -30,8 +30,8 @@ public class DrivingTracksRegulated implements IDrivingTracks {
 
     @Override
     public void stop() {
-        leftMotor.flt(true);
-        rightMotor.flt(true);
+        leftMotor.stop();
+        rightMotor.stop();
     }
 
     @Override
