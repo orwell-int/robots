@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotEquals;
  */
 @RunWith(JUnit4.class)
 public class IniFileTest {
-    private final static String INI_FILE_NAME = "/config.test.ini";
+    private final static String INI_FILE_NAME = "/config.tank.test.ini";
     private final static String RESOURCE_DIRECTORY = "src/test/resources";
     private final static Logger logback = LoggerFactory.getLogger(IniFileTest.class);
     private static final String LEFT_MOTOR_PORT_FIELD = "leftMotorPort";

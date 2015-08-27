@@ -20,6 +20,7 @@ public class IniFile {
             InputStream fileInputStream = new FileInputStream(file);
             config.load(fileInputStream);
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
