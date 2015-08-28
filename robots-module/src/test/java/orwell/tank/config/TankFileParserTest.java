@@ -36,7 +36,7 @@ public class TankFileParserTest {
 //        mockStatic(File.class);
 //        expect(File.listFiles()).andReturn(new File[]{new File("config.tank.ini")});
 //        replayAll();
-        tankFileParser = new TankFileParser();
+//        tankFileParser = new TankFileParser();
     }
 
     @Test
