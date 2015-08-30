@@ -34,6 +34,8 @@ public class DisplayScreen extends LCD {
     private static final int NOT_HANDLED_LINE = 2;
     private static final boolean IS_NOT_HANDLED_INVERTED = true;
 
+    private static final int LOG_LINE = 7;
+    private static final boolean IS_LOG_INVERTED = false;
 
     public void printWaitingForPC() {
         LCD.clear(WAITING_LINE);
@@ -86,5 +88,15 @@ public class DisplayScreen extends LCD {
         LCD.clear(STOP_TANK_LINE);
         LCD.clear(NOT_HANDLED_LINE);
         LCD.drawString("Msg not handled", 0, NOT_HANDLED_LINE, IS_NOT_HANDLED_INVERTED);
+    }
+
+    public static void printLog(String log) {
+        LCD.clear(LOG_LINE);
+        LCD.drawString(log, 0, LOG_LINE, IS_LOG_INVERTED);
+    }
+
+    public static void printError(String log) {
+        LCD.clear(LOG_LINE);
+        LCD.drawString(log, 0, LOG_LINE, !IS_LOG_INVERTED);
     }
 }

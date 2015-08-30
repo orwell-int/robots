@@ -34,7 +34,7 @@ public class DrivingTracksRegulatedTest {
         expect(leftMotor.getMaxSpeed()).andReturn(MAX_SPEED).anyTimes();
         expect(rightMotor.getMaxSpeed()).andReturn(MAX_SPEED).anyTimes();
 
-        tracksRegulated = new DrivingTracksRegulated(leftMotor, rightMotor);
+        tracksRegulated = new DrivingTracksRegulated(leftMotor, rightMotor, false, false);
     }
 
     @Test

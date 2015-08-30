@@ -12,16 +12,21 @@ import static java.lang.Math.abs;
 public class DrivingTracksNonRegulated implements IDrivingTracks {
     private final NXTMotor leftMotor;
     private final NXTMotor rightMotor;
+    private final boolean isLeftInverted;
+    private final boolean isRightInverted;
 
-    public DrivingTracksNonRegulated(NXTMotor leftMotor, NXTMotor rightMotor) {
+    public DrivingTracksNonRegulated(NXTMotor leftMotor, NXTMotor rightMotor,
+                                     boolean isLeftInverted, boolean isRightInverted) {
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
+        this.isLeftInverted = isLeftInverted;
+        this.isRightInverted = isRightInverted;
     }
 
     @Override
     public void setPower(double powerLeft, double powerRight) {
-        setPowerToMotor(leftMotor, powerLeft);
-        setPowerToMotor(rightMotor, powerRight);
+        setPowerToMotor(leftMotor, isLeftInverted?-powerLeft:powerLeft);
+        setPowerToMotor(rightMotor, isRightInverted?-powerRight:powerRight);
     }
 
     @Override

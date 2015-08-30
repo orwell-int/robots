@@ -32,7 +32,7 @@ public class TankFileParserTest {
 
     @Before
     public void setUp() throws Exception {
-        logback.debug(">>>>>>>>> IN");
+//        logback.debug(">>>>>>>>> IN");
 //        mockStatic(File.class);
 //        expect(File.listFiles()).andReturn(new File[]{new File("config.tank.ini")});
 //        replayAll();
@@ -41,7 +41,7 @@ public class TankFileParserTest {
 
     @Test
     public void testParse() throws Exception {
-
+//        tankFileParser.parse();
 
     }
 

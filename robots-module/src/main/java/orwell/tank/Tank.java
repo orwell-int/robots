@@ -1,6 +1,7 @@
 package orwell.tank;
 
 import lejos.nxt.*;
+import orwell.tank.config.TankFileBom;
 import orwell.tank.elements.*;
 
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
  * Created by Michaël Ludmann on 6/10/15.
  */
 public class Tank {
-    private static final lejos.nxt.TachoMotorPort MOTOR_PORT_LEFT = MotorPort.B;
-    private static final lejos.nxt.TachoMotorPort MOTOR_PORT_RIGHT = MotorPort.C;
-    private static final I2CPort RFID_PORT = SensorPort.S2;
+    private final lejos.nxt.TachoMotorPort leftMotorPort;
+    private final lejos.nxt.TachoMotorPort rightMotorPort;
+    private final I2CPort rfidPort;
     private final DisplayScreen displayScreen;
     private final IDrivingTracks drivingTracks;
     private final RfidFlagSensor rfidFlagSensor;
@@ -23,15 +24,20 @@ public class Tank {
     private EnumConnectionState connectionState;
     private volatile boolean isTankAlive = false;
 
-    public Tank() {
+    public Tank(TankFileBom tankFileBom) {
 //        this.drivingTracks = new DrivingTracksRegulated(
 //                new NXTRegulatedMotor(MOTOR_PORT_LEFT),
-//                new NXTRegulatedMotor(MOTOR_PORT_RIGHT));
+//                new NXTRegulatedMotor(rightMotorPort));
+        this.leftMotorPort = tankFileBom.getLeftMortPort();
+        this.rightMotorPort = tankFileBom.getRightMotorPort();
+        this.rfidPort = tankFileBom.getRfidSensorPort();
         this.drivingTracks = new DrivingTracksNonRegulated(
-                new NXTMotor(MOTOR_PORT_LEFT),
-                new NXTMotor(MOTOR_PORT_RIGHT)
+                new NXTMotor(leftMotorPort),
+                new NXTMotor(rightMotorPort),
+                tankFileBom.isLeftMotorInverted(),
+                tankFileBom.isRightMotorInverted()
         );
-        this.rfidFlagSensor = new RfidFlagSensor(RFID_PORT);
+        this.rfidFlagSensor = new RfidFlagSensor(rfidPort);
         sensors = new ArrayList<>();
         sensors.add(rfidFlagSensor);
         this.soundSpeaker = new SoundSpeaker();

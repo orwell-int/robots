@@ -4,10 +4,17 @@ import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
 import lejos.mf.nxt.MessageFrameworkNXT;
 import lejos.nxt.Button;
+import lejos.nxt.Sound;
+import orwell.tank.config.TankFileBom;
+import orwell.tank.config.TankFileParser;
+import orwell.tank.elements.DisplayScreen;
+import orwell.tank.exception.ParseIniException;
 import orwell.tank.inputs.ConnectedToProxy;
 import orwell.tank.inputs.StartTank;
 import orwell.tank.inputs.WaitForProxy;
 import orwell.tank.messaging.UnitMessageBroker;
+
+import java.io.FileNotFoundException;
 
 
 /**
@@ -24,9 +31,28 @@ class TankControl extends Thread {
     }
 
     public static void main(String[] args) {
-        Tank tank = new Tank();
-        TankControl tankControl = new TankControl(tank);
+        TankControl tankControl = TankControl.build();
+        if (null == tankControl) {
+            Button.waitForAnyPress();
+            System.exit(0);
+        }
         tankControl.startRemoteControl();
+    }
+
+    public static TankControl build(){
+        try {
+            TankFileParser tankFileParser = new TankFileParser();
+            TankFileBom tankFileBom = tankFileParser.parse();
+            Tank tank = new Tank(tankFileBom);
+            return new TankControl(tank);
+        } catch (FileNotFoundException e) {
+            DisplayScreen.printError(".ini not found");
+            Sound.buzz();
+        } catch (ParseIniException e) {
+            DisplayScreen.printError("Parse ini failed");
+            Sound.buzz();
+        }
+        return null;
     }
 
     public void run() {
