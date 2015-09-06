@@ -1,7 +1,5 @@
 package orwell.tank.utils;
 
-import lejos.nxt.Sound;
-
 import java.io.*;
 import java.util.Properties;
 

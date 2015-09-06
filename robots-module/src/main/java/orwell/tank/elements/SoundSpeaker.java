@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * Created by Michaël Ludmann on 6/11/15.
  */
 public class SoundSpeaker {
-    private static final int VOLUME = 25;
+    private static final int DEFAULT_VOLUME = 80;
     private static final int G5_FREQ = 784;
     private static final int G4_FREQ = 392;
     private static final int G3_FREQ = 196;
@@ -23,8 +23,11 @@ public class SoundSpeaker {
     private final LinkedList<SoundElement> soundElementQueue;
     private SoundPlayer player;
     private volatile boolean shouldContinue;
+    private int volume;
+
 
     public SoundSpeaker() {
+        setDefaultVolume();
         soundElementQueue = new LinkedList<>();
         startSoundSpeaker();
     }
@@ -38,12 +41,24 @@ public class SoundSpeaker {
         }
     }
 
+    public int getVolume() {
+        return volume;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
+    public void setDefaultVolume() {
+        this.volume = DEFAULT_VOLUME;
+    }
+
     public void stopSoundSpeaker() {
         shouldContinue = false;
     }
 
     protected void playTone(int frequency, int duration) {
-        soundElementQueue.add(new Tone(frequency, duration, VOLUME));
+        soundElementQueue.add(new Tone(frequency, duration, volume));
     }
 
     public void playActionTone(Move move) {
@@ -65,7 +80,7 @@ public class SoundSpeaker {
     }
 
     public void playStopTank() {
-        playTone(800,50);
+        playTone(800, 50);
     }
 
     public void playWaitingForPC() {
@@ -100,23 +115,23 @@ public class SoundSpeaker {
     }
 
     public void playVictory() {
-        playTone(C4_FREQ, 100);
-        pause(100);
-        playTone(C4_FREQ, 100);
-        pause(100);
-        playTone(D4_FREQ, 100);
-        pause(100);
-        playTone(E4_FREQ, 100);
+        playTone(C4_FREQ, 500);
+        pause(200);
+        playTone(C4_FREQ, 500);
+        pause(200);
+        playTone(D4_FREQ, 500);
+        pause(200);
+        playTone(E4_FREQ, 500);
     }
 
     public void playDefeat() {
-        playTone(C4_FREQ, 100);
-        pause(100);
-        playTone(C4_FREQ, 100);
-        pause(100);
-        playTone(B4_FREQ, 100);
-        pause(100);
-        playTone(A4_FREQ, 500);
+        playTone(C4_FREQ, 500);
+        pause(300);
+        playTone(C4_FREQ, 500);
+        pause(300);
+        playTone(B4_FREQ, 500);
+        pause(300);
+        playTone(A4_FREQ, 700);
     }
 
     protected void pause(int timeMs) {
@@ -124,12 +139,13 @@ public class SoundSpeaker {
     }
 
     public void playDraw() {
-        playTone(C4_FREQ, 100);
+        playTone(C4_FREQ, 500);
         pause(100);
-        playTone(D4_FREQ, 100);
+        playTone(D4_FREQ, 500);
         pause(100);
-        playTone(C4_FREQ, 100);
+        playTone(C4_FREQ, 300);
     }
+
 
     private class SoundPlayer extends Thread {
 

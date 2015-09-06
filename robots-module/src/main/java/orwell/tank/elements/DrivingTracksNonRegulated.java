@@ -25,8 +25,8 @@ public class DrivingTracksNonRegulated implements IDrivingTracks {
 
     @Override
     public void setPower(double powerLeft, double powerRight) {
-        setPowerToMotor(leftMotor, isLeftInverted?-powerLeft:powerLeft);
-        setPowerToMotor(rightMotor, isRightInverted?-powerRight:powerRight);
+        setPowerToMotor(leftMotor, isLeftInverted ? -powerLeft : powerLeft);
+        setPowerToMotor(rightMotor, isRightInverted ? -powerRight : powerRight);
     }
 
     @Override

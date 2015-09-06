@@ -12,7 +12,7 @@ import orwell.tank.elements.SoundSpeaker;
 public class GameDefeat implements IGameState {
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printDefeat();
     }
 
     @Override
@@ -22,7 +22,11 @@ public class GameDefeat implements IGameState {
 
     @Override
     public void visit(IDrivingTracks tracks) {
-
+        tracks.setPower(0.35, -0.35);
+        tracks.pause(500);
+        tracks.setPower(-0.35, 0.35);
+        tracks.pause(500);
+        tracks.stop();
     }
 
     @Override
@@ -32,6 +36,8 @@ public class GameDefeat implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
+        speaker.setVolume(100);
         speaker.playDefeat();
+        speaker.setDefaultVolume();
     }
 }

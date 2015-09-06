@@ -37,6 +37,19 @@ public class DisplayScreen extends LCD {
     private static final int LOG_LINE = 7;
     private static final boolean IS_LOG_INVERTED = false;
 
+    private static final int GAMESTATE_LINE = 1;
+    private static final boolean IS_GAMESTATE_INVERTED = true;
+
+    public static void printLog(String log) {
+        LCD.clear(LOG_LINE);
+        LCD.drawString(log, 0, LOG_LINE, IS_LOG_INVERTED);
+    }
+
+    public static void printError(String log) {
+        LCD.clear(LOG_LINE);
+        LCD.drawString(log, 0, LOG_LINE, !IS_LOG_INVERTED);
+    }
+
     public void printWaitingForPC() {
         LCD.clear(WAITING_LINE);
         LCD.drawString(" Waiting for PC ", 0, WAITING_LINE, IS_WAITING_INVERTED);
@@ -90,13 +103,18 @@ public class DisplayScreen extends LCD {
         LCD.drawString("Msg not handled", 0, NOT_HANDLED_LINE, IS_NOT_HANDLED_INVERTED);
     }
 
-    public static void printLog(String log) {
-        LCD.clear(LOG_LINE);
-        LCD.drawString(log, 0, LOG_LINE, IS_LOG_INVERTED);
+    public void printVictory() {
+        LCD.clear(GAMESTATE_LINE);
+        LCD.drawString("VICTORY \\o/", 0, GAMESTATE_LINE, IS_GAMESTATE_INVERTED);
     }
 
-    public static void printError(String log) {
-        LCD.clear(LOG_LINE);
-        LCD.drawString(log, 0, LOG_LINE, !IS_LOG_INVERTED);
+    public void printDefeat() {
+        LCD.clear(GAMESTATE_LINE);
+        LCD.drawString("DEFEAT :(", 0, GAMESTATE_LINE, IS_GAMESTATE_INVERTED);
+    }
+
+    public void printDraw() {
+        LCD.clear(GAMESTATE_LINE);
+        LCD.drawString("DRAW :/", 0, GAMESTATE_LINE, IS_GAMESTATE_INVERTED);
     }
 }

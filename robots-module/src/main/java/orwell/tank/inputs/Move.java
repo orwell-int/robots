@@ -13,9 +13,9 @@ import java.util.List;
  * Created by Michaël Ludmann on 6/10/15.
  */
 public class Move implements IInputVisitor {
+    private final boolean hasMove;
     private double leftMove;
     private double rightMove;
-    private final boolean hasMove;
 
     public Move(List<String> moveInput) {
         if (2 != moveInput.size()) {

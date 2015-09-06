@@ -1,9 +1,7 @@
 package orwell.tank.config;
 
-import lejos.nxt.Button;
 import lejos.nxt.MotorPort;
 import lejos.nxt.SensorPort;
-import lejos.nxt.Sound;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.exception.ParseIniException;
 import orwell.tank.utils.IniFile;
@@ -16,7 +14,6 @@ import java.io.FileNotFoundException;
  */
 public class TankFileParser {
 
-    private final IniFile iniFile;
     private static final String TANK_FILENAME_ELEMENT = "tank";
     private static final String TANK_FILENAME_EXT = ".ini";
     private static final String DEFAULT_TANK_FILENAME = "tank.defaults.ini";
@@ -25,6 +22,7 @@ public class TankFileParser {
     private static final String IS_LEFT_MOTOR_INVERTED_FIELD = "isLeftMotorInverted";
     private static final String IS_RIGHT_MOTOR_INVERTED_FIELD = "isRightMotorInverted";
     private static final String RFID_SENSOR_PORT_FIELD = "rfidSensorPort";
+    private final IniFile iniFile;
 
     public TankFileParser() throws FileNotFoundException {
         String validatedFileName = getValidatedFileName();
@@ -37,8 +35,7 @@ public class TankFileParser {
     private String getValidatedFileName() {
         // Try to find custom config
         File.listFiles(); // required to init File.totalFiles static value
-        for (byte i = 0; i < File.totalFiles ; i++)
-        {
+        for (byte i = 0; i < File.totalFiles; i++) {
             File file = File.listFiles()[i];
             DisplayScreen.printLog(file.getName());
             if (isCustomFileValid(file)) {

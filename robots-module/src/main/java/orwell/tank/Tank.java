@@ -1,6 +1,7 @@
 package orwell.tank;
 
-import lejos.nxt.*;
+import lejos.nxt.I2CPort;
+import lejos.nxt.NXTMotor;
 import orwell.tank.config.TankFileBom;
 import orwell.tank.elements.*;
 

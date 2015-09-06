@@ -12,17 +12,18 @@ import orwell.tank.elements.SoundSpeaker;
 public class GameDraw implements IGameState {
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printDraw();
     }
 
     @Override
     public void visit(Tank tank) {
-
     }
 
     @Override
     public void visit(IDrivingTracks tracks) {
-
+        tracks.setPower(0.55, -0.55);
+        tracks.pause(2000);
+        tracks.stop();
     }
 
     @Override
@@ -32,6 +33,8 @@ public class GameDraw implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
+        speaker.setVolume(100);
         speaker.playDraw();
+        speaker.setDefaultVolume();
     }
 }

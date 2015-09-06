@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class RfidFlagSensor extends RFIDSensor implements ISensor {
 
     private static final int READ_RATE_MS = 50;
-    private volatile long rfidValue;
     private final Timer timer;
     private final ArrayList<ISensorListener> sensorListenerList;
+    private volatile long rfidValue;
 
     /**
      * Create a class to provide access to the device. Perform device

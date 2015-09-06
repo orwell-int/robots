@@ -39,7 +39,7 @@ class TankControl extends Thread {
         tankControl.startRemoteControl();
     }
 
-    public static TankControl build(){
+    public static TankControl build() {
         try {
             TankFileParser tankFileParser = new TankFileParser();
             TankFileBom tankFileBom = tankFileParser.parse();

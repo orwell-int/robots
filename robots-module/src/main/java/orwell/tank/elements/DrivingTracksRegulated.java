@@ -12,10 +12,10 @@ public class DrivingTracksRegulated implements IDrivingTracks {
     private static final float SPEED_REDUCE_FACTOR = 0.85f;
     private final NXTRegulatedMotor leftMotor;
     private final NXTRegulatedMotor rightMotor;
-    private double powerLeft;
-    private double powerRight;
     private final boolean isLeftInverted;
     private final boolean isRightInverted;
+    private double powerLeft;
+    private double powerRight;
 
     public DrivingTracksRegulated(NXTRegulatedMotor leftMotor, NXTRegulatedMotor rightMotor,
                                   boolean isLeftInverted, boolean isRightInverted) {
@@ -29,8 +29,8 @@ public class DrivingTracksRegulated implements IDrivingTracks {
     public void setPower(double powerLeft, double powerRight) {
         this.powerLeft = powerLeft;
         this.powerRight = powerRight;
-        setPowerToMotor(leftMotor, (float) (isLeftInverted?-powerLeft:powerLeft));
-        setPowerToMotor(rightMotor, (float) (isRightInverted?-powerRight:powerRight));
+        setPowerToMotor(leftMotor, (float) (isLeftInverted ? -powerLeft : powerLeft));
+        setPowerToMotor(rightMotor, (float) (isRightInverted ? -powerRight : powerRight));
     }
 
     @Override
@@ -44,8 +44,8 @@ public class DrivingTracksRegulated implements IDrivingTracks {
         DrivingTracksMemento drivingTracksMemento = saveToMemento();
         leftMotor.setSpeed(leftMotor.getMaxSpeed());
         rightMotor.setSpeed(rightMotor.getMaxSpeed());
-        leftMotor.rotate(isLeftInverted?-RECOIL_ROTATION_DEGREES:RECOIL_ROTATION_DEGREES);
-        rightMotor.rotate(isRightInverted?-RECOIL_ROTATION_DEGREES:RECOIL_ROTATION_DEGREES);
+        leftMotor.rotate(isLeftInverted ? -RECOIL_ROTATION_DEGREES : RECOIL_ROTATION_DEGREES);
+        rightMotor.rotate(isRightInverted ? -RECOIL_ROTATION_DEGREES : RECOIL_ROTATION_DEGREES);
         restoreFromMemento(drivingTracksMemento);
     }
 

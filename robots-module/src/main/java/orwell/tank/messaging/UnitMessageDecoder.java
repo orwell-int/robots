@@ -3,9 +3,9 @@ package orwell.tank.messaging;
 import lejos.mf.common.UnitMessage;
 import lejos.mf.common.UnitMessageType;
 import orwell.tank.IInputVisitor;
+import orwell.tank.inputs.*;
 import orwell.tank.utils.Splice;
 import orwell.tank.utils.Split;
-import orwell.tank.inputs.*;
 
 import java.util.List;
 

@@ -12,7 +12,7 @@ import orwell.tank.elements.SoundSpeaker;
 public class GameVictory implements IGameState {
     @Override
     public void visit(DisplayScreen screen) {
-
+        screen.printVictory();
     }
 
     @Override
@@ -22,10 +22,15 @@ public class GameVictory implements IGameState {
 
     @Override
     public void visit(IDrivingTracks tracks) {
-        tracks.setPower(50, -50);
-        tracks.pause(1000);
-        tracks.setPower(-50, 50);
-        tracks.pause(1000);
+        tracks.stop();
+        tracks.setPower(0.75, 0.75);
+        tracks.pause(500);
+        tracks.setPower(-0.75, -0.75);
+        tracks.pause(500);
+        tracks.setPower(0.75, 0.75);
+        tracks.pause(500);
+        tracks.setPower(-0.75, -0.75);
+        tracks.pause(500);
         tracks.stop();
     }
 
@@ -36,6 +41,8 @@ public class GameVictory implements IGameState {
 
     @Override
     public void visit(SoundSpeaker speaker) {
+        speaker.setVolume(100);
         speaker.playVictory();
+        speaker.setDefaultVolume();
     }
 }
