@@ -20,6 +20,9 @@ public class GameState implements IInputVisitor {
             gameState = null;
         } else {
             switch (gameStateInput.get(0)) {
+                case "start":
+                    gameState = new GameStart();
+                    break;
                 case "fail":
                     gameState = new GameDefeat();
                     break;

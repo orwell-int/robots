@@ -1,6 +1,5 @@
 package orwell.tank.inputs;
 
-import orwell.tank.IInputVisitor;
 import orwell.tank.Tank;
 import orwell.tank.elements.DisplayScreen;
 import orwell.tank.elements.IDrivingTracks;
@@ -8,31 +7,32 @@ import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
 /**
- * Created by Michaël Ludmann on 6/10/15.
+ * Created by Michaël Ludmann on 10/10/15.
  */
-public class StopTank implements IInputVisitor {
+public class GameStart extends StartTank implements IGameState {
 
     @Override
     public void visit(Tank tank) {
+
     }
 
     @Override
     public void visit(IDrivingTracks tracks) {
-        tracks.stop();
+        tracks.stop(); // when a new game starts, ensure the tank is not moving
     }
 
     @Override
     public void visit(RfidFlagSensor rfidFlagSensor) {
-        rfidFlagSensor.stopListen();
+        super.visit(rfidFlagSensor);
     }
 
     @Override
     public void visit(SoundSpeaker speaker) {
-        speaker.playStopTank();
+        super.visit(speaker);
     }
 
     @Override
     public void visit(DisplayScreen screen) {
-        screen.printStopTank();
+        super.visit(screen);
     }
 }
