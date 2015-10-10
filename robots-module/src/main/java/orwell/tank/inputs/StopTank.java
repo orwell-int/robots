@@ -7,10 +7,16 @@ import orwell.tank.elements.IDrivingTracks;
 import orwell.tank.elements.RfidFlagSensor;
 import orwell.tank.elements.SoundSpeaker;
 
+import java.util.List;
+
 /**
  * Created by Michaël Ludmann on 6/10/15.
  */
 public class StopTank implements IInputVisitor {
+
+    public StopTank(List<String> payloadBody) {
+        
+    }
 
     @Override
     public void visit(Tank tank) {
